@@ -1,8 +1,12 @@
 import Head from 'next/head';
 import styles from './Home.module.scss';
 import clsx from 'clsx';
+import axios from 'axios';
 
-export default function Home() {
+// https://www.themealdb.com 라이브러리 활용
+export default function Home(props) {
+	console.log('props: ', props);
+
 	return (
 		<>
 			<Head>
@@ -17,4 +21,17 @@ export default function Home() {
 			</main>
 		</>
 	);
+}
+
+// ISR 방식 작업 - 주기설정
+// ISR 방식 화면 확인 - 빌드 후 npm run start
+export async function getStaticProps() {
+	const { data } = await axios.get(`/filter.php?c=Seafood`);
+	console.log('Data fetching on Server: ', data);
+
+	// props로 데이터를 넘길 때 data 안쪽의 값까지 뽑아낸 후 전달
+	return {
+		props: data,
+		revalidate: 10,
+	};
 }

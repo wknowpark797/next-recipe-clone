@@ -1,4 +1,7 @@
 import '@/styles/globals.scss';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'https://www.themealdb.com/api/json/v1/1';
 
 export default function App({ Component, pageProps }) {
 	return <Component {...pageProps} />;
@@ -9,17 +12,17 @@ export default function App({ Component, pageProps }) {
 	요리명을 검색어로 입력하면 해당 요리의 정보와 레시피를 확인하는 웹서비스 개발
 	- 좋아하는 레시피를 저장해서 즐겨찾기 (localStorage 저장)
 
-	1. 메인페이지
+	1. 메인페이지 (ISR)
 		- 특정 카테고리의 요리들을 소개하는 intro 페이지
 
-	2. 레시피 검색 페이지
+	2. 레시피 검색 페이지 (CSR)
 		- 검색창으로 검색어를 입력하면 debounce를 적용해서 실시간으로 레시피의 목록 결과를 확인하는 페이지
 		
-		2-1. 레시피 상세페이지
+		2-1. 레시피 상세페이지 (CSR)
 			- 검색화면에서 목록 클릭시 출력되는 상세 페이지
 			- 즐겨찾기 기능 추가
 
-	3. 즐겨찾기 페이지
+	3. 즐겨찾기 페이지 (CSR)
 		- 즐겨찾기에 등록된 목록을 한번에 확인하는 페이지
 */
 
@@ -39,6 +42,8 @@ export default function App({ Component, pageProps }) {
 /*
 	[ Atomic Design Pattern ]
 	- 컴포넌트를 원자처럼 최소단위로 쪼개서 재활용 가능하도록 처리하는 개발방법론
+
+	단점: 컴포넌트간의 의존성이 생김, 특정 원자단위의 컴포넌트에서 문제 발생시 상위컴포넌트까지 모두 문제 발생소지
 
 	1. Atoms (원자)
 		- 버튼, 메뉴, 제목, 글자, 폼요소, 썸네일
