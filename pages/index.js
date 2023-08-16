@@ -2,7 +2,11 @@ import Head from 'next/head';
 import styles from './Home.module.scss';
 import clsx from 'clsx';
 import axios from 'axios';
-import { Visual, VisualWithText } from '@/components/pic/Visual';
+import {
+	Visual,
+	VisualWithText,
+	VisualWithContent,
+} from '@/components/pic/Visual';
 
 // https://www.themealdb.com 라이브러리 활용
 export default function Home({ meals }) {
@@ -30,6 +34,13 @@ export default function Home({ meals }) {
 					imgTxt={newMeals[0].strMeal}
 					style={{ color: 'yellow', fontSize: 20 }}
 				/>
+
+				<VisualWithContent
+					imgSrc={newMeals[1].strMealThumb}
+					style={{ color: 'aqua' }}
+				>
+					<span>Children</span>
+				</VisualWithContent>
 
 				<figure className='visual'>
 					<article className='bg'>

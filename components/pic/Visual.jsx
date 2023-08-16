@@ -35,3 +35,18 @@ export function VisualWithText({ imgSrc, imgTxt, style }) {
 		</div>
 	);
 }
+
+export function VisualWithContent({ imgSrc, style, children }) {
+	return (
+		<div className={clsx(styles.picWithContent)} style={style}>
+			<Image
+				src={imgSrc}
+				alt={imgSrc}
+				priority
+				fill
+				sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+			/>
+			{children}
+		</div>
+	);
+}
