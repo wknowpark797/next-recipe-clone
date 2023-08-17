@@ -1,5 +1,5 @@
 .tit {
-	font-family: var(--font-orbitron);
+	font-family: var(--font-nanum);
 	color: #333;
 
 	a {
@@ -9,6 +9,17 @@
 	}
 
 	&:hover {
+		color: orange;
+	}
+
+	&.tit-logo {
+		font-family: var(--font-orbitron);
+		font-weight: 700;
+		color: violet;
+		font-size: 26px;
+	}
+	&.tit-slogan {
+		font-size: 10vw;
 		color: orange;
 	}
 }
