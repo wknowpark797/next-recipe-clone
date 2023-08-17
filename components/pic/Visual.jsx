@@ -2,7 +2,7 @@ import Image from 'next/image';
 import clsx from 'clsx';
 import styles from './Visual.module.scss';
 
-export function Visual({ imgSrc, style }) {
+export function Visual({ imgSrc, imgTxt, style, children }) {
 	return (
 		<div className={clsx(styles.pic)} style={style}>
 			<Image
@@ -17,36 +17,10 @@ export function Visual({ imgSrc, style }) {
 					- sizes 속성을 사용하면 브라우저 폭에 따라 출력될 크기를 지정해서 이미지 성능을 향상할 수 있다.
         */
 			/>
-		</div>
-	);
-}
 
-export function VisualWithText({ imgSrc, imgTxt, style }) {
-	return (
-		<div className={clsx(styles.picWithTxt)} style={style}>
-			<Image
-				src={imgSrc}
-				alt={imgSrc}
-				priority
-				fill
-				sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-			/>
-			<h2>{imgTxt}</h2>
-		</div>
-	);
-}
-
-export function VisualWithContent({ imgSrc, style, children }) {
-	return (
-		<div className={clsx(styles.picWithContent)} style={style}>
-			<Image
-				src={imgSrc}
-				alt={imgSrc}
-				priority
-				fill
-				sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-			/>
-			{children}
+			{/* 컴포넌트 호출시 전달되는 props의 유무에 따라서 반환하는 JSX 분기처리 */}
+			{imgTxt && <h2>{imgTxt}</h2>}
+			{children && children}
 		</div>
 	);
 }

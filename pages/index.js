@@ -2,16 +2,11 @@ import Head from 'next/head';
 import styles from './Home.module.scss';
 import clsx from 'clsx';
 import axios from 'axios';
-import {
-	Visual,
-	VisualWithText,
-	VisualWithContent,
-} from '@/components/pic/Visual';
+import { Visual } from '@/components/pic/Visual';
 
 // https://www.themealdb.com 라이브러리 활용
 export default function Home({ meals }) {
-	// console.log('meals: ', meals);
-	const newMeals = meals.slice(0, 7);
+	console.log('meals: ', meals);
 
 	return (
 		<>
@@ -29,32 +24,9 @@ export default function Home({ meals }) {
 			</Head>
 
 			<main className={clsx(styles.main)}>
-				<VisualWithText
-					imgSrc={newMeals[0].strMealThumb}
-					imgTxt={newMeals[0].strMeal}
-					style={{ color: 'yellow', fontSize: 20 }}
-				/>
-
-				<VisualWithContent
-					imgSrc={newMeals[1].strMealThumb}
-					style={{ color: 'aqua' }}
-				>
-					<span>Children</span>
-				</VisualWithContent>
-
-				<figure className='visual'>
-					<article className='bg'>
-						{newMeals.map((item) => (
-							<Visual key={item.idMeal} imgSrc={item.strMealThumb} />
-						))}
-					</article>
-
-					<article className='list'>
-						{newMeals.map((item) => {
-							return <h2 key={item.idMeal}>{item.strMeal}</h2>;
-						})}
-					</article>
-				</figure>
+				<Visual imgSrc={meals[0].strMealThumb}>
+					<span>Hello</span>
+				</Visual>
 			</main>
 		</>
 	);
