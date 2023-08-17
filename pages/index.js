@@ -24,7 +24,14 @@ export default function Home({ meals }) {
 			</Head>
 
 			<main className={clsx(styles.main)}>
-				<Title url={'/abc'} className={styles.txt}>
+				<Title
+					url={'/abc'}
+					className={styles.txt}
+					style={{ color: 'violet', hoverColor: 'aquamarine' }}
+					// style에 color값 적용시 hover값까지 같이 스크립트로 덮어쓰기 되기 때문에
+					// hover색상과 함께 그룹으로 전달
+					// style 객체로 전달하지 않으면 module.scss의 기본 hover 스타일 적용
+				>
 					Hello
 				</Title>
 			</main>
