@@ -1,3 +1,4 @@
+import React from 'react';
 import Link from 'next/link';
 import styles from './Title.module.scss';
 import clsx from 'clsx';
@@ -17,6 +18,7 @@ const orbitron = Orbitron({
 	variable: '--font-orbitron',
 });
 
+/*
 function Title({ children, url, style, className, type }) {
 	return (
 		<h1
@@ -48,6 +50,29 @@ function Title({ children, url, style, className, type }) {
 				children
 			)}
 		</h1>
+	);
+}
+*/
+
+// React.createElement(elementType: String, props: Object, children: JSX Node)
+function Title({ children, url, style, className, type, tag }) {
+	return React.createElement(
+		tag, // elementType
+		{
+			// props
+			className: clsx(
+				styles.tit,
+				className,
+				nanum.variable,
+				orbitron.variable,
+				styles[`tit-${type}`]
+			),
+			style: url ? style : { ...style, transitionDuration: '0.5s' },
+			onMouseEnter: (e) => (e.target.style.color = style?.hoverColor),
+			onMouseLeave: (e) => (e.target.style.color = style?.color),
+		},
+		// JSX Node
+		children
 	);
 }
 

@@ -24,6 +24,7 @@ export default function Home({ meals }) {
 			</Head>
 
 			<main className={clsx(styles.main)}>
+				{/* 
 				<Title
 					url={'/abc'}
 					className={styles.txt}
@@ -36,7 +37,14 @@ export default function Home({ meals }) {
 					Hello
 				</Title>
 
-				<Title type={'slogan'}>Slogan</Title>
+				<Title type={'slogan'} tag={'h2'}>
+					Slogan
+				</Title> 
+				*/}
+
+				<Title tag={'h3'} type={'slogan'}>
+					Hello
+				</Title>
 			</main>
 		</>
 	);
