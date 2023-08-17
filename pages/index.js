@@ -42,7 +42,12 @@ export default function Home({ meals }) {
 				</Title> 
 				*/}
 
-				<Title tag={'h3'} type={'slogan'}>
+				<Title
+					// url={'/abc'}
+					tag={'h3'}
+					type={'slogan'}
+					style={{ color: 'aqua', hoverColor: 'aquamarine' }}
+				>
 					Hello
 				</Title>
 			</main>
