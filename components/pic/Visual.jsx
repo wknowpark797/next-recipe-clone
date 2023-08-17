@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import clsx from 'clsx';
 import styles from './Visual.module.scss';
+import Link from 'next/link';
 
 export function Visual({
 	imgSrc,
@@ -10,6 +11,7 @@ export function Visual({
 	// 해당 Atom 컴포넌트가 호출되는 위치에서의 className props를 내부로 전달
 	className,
 	priority = false,
+	url,
 }) {
 	return (
 		<div className={clsx(styles.pic, className)} style={style}>
@@ -27,8 +29,28 @@ export function Visual({
 			/>
 
 			{/* 컴포넌트 호출시 전달되는 props의 유무에 따라서 반환하는 JSX 분기처리 */}
-			{imgTxt && <h2>{imgTxt}</h2>}
-			{children && children}
+			{imgTxt && (
+				<>
+					{/* dim 처리 마스크 */}
+					<aside></aside>
+
+					{/* url 값이 전달되면 Link 컴포넌트를 연결해서 출력 */}
+					{url ? (
+						<h2>
+							<Link href={url}>{imgTxt}</Link>
+						</h2>
+					) : (
+						<h2>{imgTxt}</h2>
+					)}
+				</>
+			)}
+
+			{children && (
+				<>
+					<aside></aside>
+					{url ? <Link href={url}>children</Link> : children}
+				</>
+			)}
 		</div>
 	);
 }
