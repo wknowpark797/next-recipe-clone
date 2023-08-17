@@ -24,9 +24,15 @@ export default function Home({ meals }) {
 			</Head>
 
 			<main className={clsx(styles.main)}>
-				<Visual imgSrc={meals[0].strMealThumb}>
-					<span>Hello</span>
-				</Visual>
+				<div className={clsx(styles.box)}>
+					{/* 부모요소에서 직접 Atom 컴포넌트에 클래스명을 지정해서 style을 overwrite하고 싶을 때 클래스를 등록한 후 props로 전달 */}
+					<Visual
+						imgSrc={meals[0].strMealThumb}
+						className={styles.customPic}
+					>
+						<span>Hello</span>
+					</Visual>
+				</div>
 			</main>
 		</>
 	);
