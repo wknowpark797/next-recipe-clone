@@ -13,6 +13,14 @@ export default function App({ Component, pageProps }) {
 }
 
 /*
+	[ 컴포넌트 렌더링 호출 순서 ]
+	1. _app.js에서 공통의 Layout 템플릿 컴포넌트를 가져와서 전체 컴포넌트를 wrapping 처리
+	2. _app.js에 있는 Component는 page 폴더 안쪽에 있는 각각의 페이지 컴포넌트를 의미
+	3. 모든 페이지 컴포넌트에는 Layout 컴포넌트의 공통의 구조가 적용됨
+	4. 각각의 페이지 컴포넌트에서 페이지별로 들어갈 컨텐츠 추가
+*/
+
+/*
 	[ 프로젝트 구성 ]
 	요리명을 검색어로 입력하면 해당 요리의 정보와 레시피를 확인하는 웹서비스 개발
 	- 좋아하는 레시피를 저장해서 즐겨찾기 (localStorage 저장)
