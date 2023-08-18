@@ -25,11 +25,7 @@ export default function Home({ meals }) {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
-			<main className={clsx(styles.main)}>
-				<div className={clsx(styles.picFrame)}>
-					<Pic imgSrc={meals[0].strMealThumb} />
-				</div>
-			</main>
+			<main className={clsx(styles.main)}></main>
 		</>
 	);
 }
@@ -37,12 +33,23 @@ export default function Home({ meals }) {
 // ISR 방식 작업 - 주기설정
 // ISR 방식 화면 확인 - 빌드 후 npm run start
 export async function getStaticProps() {
-	const { data } = await axios.get(`/filter.php?c=Seafood`);
-	// console.log('Data fetching on Server: ', data);
+	const list = [];
+	const { data: obj } = await axios.get('/categories.php');
+	const items = obj.categories;
+	items.forEach((el) => list.push(el.strCategory));
+
+	const newList = list.filter(
+		(el) => el !== 'Goat' && el !== 'Vegan' && el !== 'Starter'
+	);
+	const randomNum = Math.floor(Math.random() * newList.length);
+
+	const { data } = await axios.get(
+		`/filter.php?c=${newList[randomNum]}`
+	);
 
 	// props로 데이터를 넘길 때 data 안쪽의 값까지 뽑아낸 후 전달
 	return {
 		props: data,
-		revalidate: 60 * 60 * 24,
+		revalidate: 10,
 	};
 }
