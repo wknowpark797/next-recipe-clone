@@ -55,7 +55,14 @@ function Title({ children, url, style, className, type }) {
 */
 
 // React.createElement(elementType: String, props: Object, children: React Node)
-function Title({ children, url, style, className, type, tag }) {
+function Title({
+	children,
+	url,
+	style,
+	className,
+	type,
+	tag = 'h1',
+}) {
 	return React.createElement(
 		tag, // elementType
 		{

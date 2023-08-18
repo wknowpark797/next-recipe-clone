@@ -2,7 +2,7 @@ import Head from 'next/head';
 import styles from './Home.module.scss';
 import clsx from 'clsx';
 import axios from 'axios';
-import Navbar from '@/components/molecules/Navbar';
+import Header from '@/components/organisms/Header';
 
 // https://www.themealdb.com 라이브러리 활용
 export default function Home({ meals, category }) {
@@ -25,7 +25,7 @@ export default function Home({ meals, category }) {
 			</Head>
 
 			<main className={clsx(styles.main)}>
-				<Navbar names={['Find Recipe', 'My Favorite']} gap={20} />
+				<Header />
 			</main>
 		</>
 	);
