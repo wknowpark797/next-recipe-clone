@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import styles from './style.module.scss';
+import clsx from 'clsx';
 
 export default function Recipe() {
 	return (
@@ -7,7 +9,7 @@ export default function Recipe() {
 				<title>Recipe Page</title>
 			</Head>
 
-			<h2>Recipe Page</h2>
+			<div className={styles.box}></div>
 		</>
 	);
 }
