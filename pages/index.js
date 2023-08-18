@@ -7,8 +7,9 @@ import Text from '@/components/atoms/text/Text';
 import { Pic } from '@/components/atoms/pic/Pic';
 
 // https://www.themealdb.com 라이브러리 활용
-export default function Home({ meals }) {
+export default function Home({ meals, category }) {
 	console.log('meals: ', meals);
+	console.log('category: ', category);
 
 	return (
 		<>
@@ -49,7 +50,7 @@ export async function getStaticProps() {
 
 	// props로 데이터를 넘길 때 data 안쪽의 값까지 뽑아낸 후 전달
 	return {
-		props: data,
+		props: { ...data, category: newList[randomNum] },
 		revalidate: 10,
 	};
 }
