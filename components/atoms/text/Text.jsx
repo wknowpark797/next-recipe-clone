@@ -18,7 +18,15 @@ const orbitron = Orbitron({
 	variable: '--font-orbitron',
 });
 
-function Text({ children, url, style, className, type, tag = 'p' }) {
+function Text({
+	children,
+	url,
+	style,
+	className,
+	type,
+	tag = 'p',
+	isOn = false,
+}) {
 	return React.createElement(
 		tag,
 		{
@@ -27,7 +35,10 @@ function Text({ children, url, style, className, type, tag = 'p' }) {
 				className,
 				nanum.variable,
 				orbitron.variable,
-				styles[`txt-${type}`]
+				styles[`txt-${type}`],
+				// 전달되는 boolean에 따라 고유클래스 on 추가
+				// module.scss가 자체적으로 고유클래스명으로 변환하기 때문에 부모의 클래스명을 내부 전용 css에 연결하는것이 불가능하기 때문
+				isOn && styles.on
 			),
 			style: url ? style : { ...style, transitionDuration: '0.5s' },
 			onMouseEnter: (e) => (e.target.style.color = style?.hoverColor),

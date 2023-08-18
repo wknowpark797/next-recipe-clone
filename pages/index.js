@@ -3,6 +3,7 @@ import styles from './Home.module.scss';
 import clsx from 'clsx';
 import axios from 'axios';
 import Title from '@/components/atoms/text/Title';
+import Text from '@/components/atoms/text/Text';
 
 // https://www.themealdb.com 라이브러리 활용
 export default function Home({ meals }) {
@@ -24,32 +25,14 @@ export default function Home({ meals }) {
 			</Head>
 
 			<main className={clsx(styles.main)}>
-				{/* 
-				<Title
-					url={'/abc'}
-					className={styles.txt}
-					// style={{ color: 'violet', hoverColor: 'aquamarine' }}
-					// style에 color값 적용시 hover값까지 같이 스크립트로 덮어쓰기 되기 때문에
-					// hover색상과 함께 그룹으로 전달
-					// style 객체로 전달하지 않으면 module.scss의 기본 hover 스타일 적용
-					type={'logo'}
-				>
-					Hello
-				</Title>
-
-				<Title type={'slogan'} tag={'h2'}>
-					Slogan
-				</Title> 
-				*/}
-
-				<Title
-					// url={'/abc'}
-					tag={'h3'}
-					type={'slogan'}
-					style={{ color: 'aqua', hoverColor: 'aquamarine' }}
-				>
-					Hello
-				</Title>
+				{/* 해당 요소에 on클래스를 활성화하고 싶을 때 props로 boolean값 전달 */}
+				<Text tag={'span'} type={'breadcrumb'} isOn={false}>
+					Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+					Deleniti eligendi, inventore dolor, quaerat voluptate
+					cupiditate quos incidunt minima et obcaecati eius dolores
+					animi suscipit dolore facere illum! Perspiciatis, quasi
+					amet.
+				</Text>
 			</main>
 		</>
 	);
