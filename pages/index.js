@@ -1,8 +1,5 @@
 import Head from 'next/head';
-import styles from './Home.module.scss';
-import clsx from 'clsx';
 import axios from 'axios';
-import Header from '@/components/organisms/Header';
 
 // https://www.themealdb.com 라이브러리 활용
 export default function Home({ meals, category }) {
@@ -23,10 +20,6 @@ export default function Home({ meals, category }) {
 				/>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-
-			<main className={clsx(styles.main)}>
-				<Header />
-			</main>
 		</>
 	);
 }
