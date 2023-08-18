@@ -6,8 +6,8 @@ import Navbar from '@/components/molecules/Navbar';
 
 // https://www.themealdb.com 라이브러리 활용
 export default function Home({ meals, category }) {
-	console.log('meals: ', meals);
-	console.log('category: ', category);
+	// console.log('meals: ', meals);
+	// console.log('category: ', category);
 
 	return (
 		<>
@@ -25,7 +25,7 @@ export default function Home({ meals, category }) {
 			</Head>
 
 			<main className={clsx(styles.main)}>
-				<Navbar names={['Recipe', 'Favorite']} />
+				<Navbar names={['Find Recipe', 'My Favorite']} gap={20} />
 			</main>
 		</>
 	);
