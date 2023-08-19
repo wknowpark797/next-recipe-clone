@@ -3,6 +3,7 @@ import Link from 'next/link';
 import styles from './Text.module.scss';
 import clsx from 'clsx';
 import { Nanum_Myeongjo, Orbitron } from 'next/font/google';
+import { useRouter } from 'next/router';
 
 const nanum = Nanum_Myeongjo({
 	subsets: ['latin'],
@@ -27,10 +28,15 @@ function Text({
 	tag = 'p',
 	isOn = false,
 }) {
+	const router = useRouter();
+	// 현재 활성화되어있는 라우터명
+	const currentPath = router.pathname;
+
 	return React.createElement(
 		tag,
 		{
 			className: clsx(
+				currentPath === url ? styles.on : '',
 				styles.txt,
 				className,
 				nanum.variable,
