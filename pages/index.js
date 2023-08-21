@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import axios from 'axios';
+import SwiperWrap from '@/components/organisms/Swiper/Swiper';
 
 // https://www.themealdb.com 라이브러리 활용
 export default function Home({ meals, category }) {
@@ -11,6 +12,19 @@ export default function Home({ meals, category }) {
 			<Head>
 				<title>Main Page</title>
 			</Head>
+
+			<SwiperWrap recipe={meals} category={category} />
+			{/* 
+				[ Swiper 컴포넌트 작업 구성 ]
+					Visual - Organisms
+					SwiperWrapper - molecules
+					SwiperSlide - atoms
+					ImgList - molecules
+					ImgSlide - atoms
+					Controls - molecules
+					Counter - molecules
+					Button - atoms
+			*/}
 		</>
 	);
 }
