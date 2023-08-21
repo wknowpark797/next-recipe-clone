@@ -10,6 +10,12 @@ const nanum = Nanum_Myeongjo({
 	weight: ['400', '700'],
 	preload: true,
 	variable: '--font-nanum',
+	display: 'swap',
+	adjustFontFallback: false,
+	// 오류 발생 - 빌드시 오류 발생
+	// display 'block'(기본값): 외부 폰트가 준비되지 않았을 때 해당 텍스트를 숨김처리
+	// display 'swap': 외부 폰트가 준비되지 않았을 때 기본 system 폰트를 fallback(대체 폰트 출력) 처리해서 보임처리
+	// adjustFontFallback: 레이아웃의 최적화를 위해 자동으로 fallback(대체 폰트 출력)기능 실행
 });
 
 const orbitron = Orbitron({
@@ -17,6 +23,8 @@ const orbitron = Orbitron({
 	weight: ['400', '700'],
 	preload: true,
 	variable: '--font-orbitron',
+	display: 'swap',
+	adjustFontFallback: false,
 });
 
 function Text({
