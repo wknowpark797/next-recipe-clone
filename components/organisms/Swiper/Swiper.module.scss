@@ -17,6 +17,15 @@
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				text-align: center;
+				opacity: 0.2;
+				transform: scale(0.4);
+				transition: transform 0.5s, opacity 0.5s;
+
+				&.on {
+					opacity: 1;
+					transform: scale(1.4);
+				}
 			}
 		}
 	}
