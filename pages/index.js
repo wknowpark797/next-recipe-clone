@@ -29,7 +29,7 @@ export default function Home({ meals, category }) {
 	);
 }
 
-// ISR 방식 작업 - 주기설정
+// ISR 방식 작업 - 주기설정 (revalidate)
 // ISR 방식 화면 확인 - 빌드 후 npm run start
 export async function getStaticProps() {
 	const list = [];
