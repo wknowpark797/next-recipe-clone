@@ -3,9 +3,13 @@ import axios from 'axios';
 import styles from './style.module.scss';
 import clsx from 'clsx';
 import Category from '@/components/molecules/Category/Category';
+import { useRecipeByCategory } from '@/hooks/useRecipe';
 
 export default function Recipe({ categories }) {
-	console.log('categories: ', categories);
+	// console.log('categories: ', categories);
+
+	const { data, isSuccess } = useRecipeByCategory('Beef');
+	console.log('hooks data: ', data);
 
 	return (
 		<>
