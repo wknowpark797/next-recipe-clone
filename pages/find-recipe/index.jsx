@@ -2,7 +2,7 @@ import Head from 'next/head';
 import axios from 'axios';
 import styles from './style.module.scss';
 import clsx from 'clsx';
-import Btn from '@/components/atoms/button/Btn';
+import Category from '@/components/molecules/Category/Category';
 
 export default function Recipe({ categories }) {
 	console.log('categories: ', categories);
@@ -14,11 +14,7 @@ export default function Recipe({ categories }) {
 			</Head>
 
 			<section className={styles.recipePage}>
-				<nav>
-					{categories.map((el) => {
-						return <Btn key={el.idCategory}>{el.strCategory}</Btn>;
-					})}
-				</nav>
+				<Category items={categories} />
 			</section>
 		</>
 	);
