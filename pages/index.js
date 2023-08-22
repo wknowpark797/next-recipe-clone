@@ -13,7 +13,9 @@ export default function Home({ meals, category }) {
 				<title>Main Page</title>
 			</Head>
 
-			<SwiperWrap recipe={meals.slice(0, 7)} category={category} />
+			<main>
+				<SwiperWrap recipe={meals.slice(0, 7)} category={category} />
+			</main>
 			{/* 
 				[ Swiper 컴포넌트 작업 구성 ]
 					Visual - Organisms

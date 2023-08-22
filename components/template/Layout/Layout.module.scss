@@ -3,7 +3,7 @@
 	height: 100vh;
 	overflow: hidden;
 	background: #222;
-	padding: 15vh 10vw 5vh;
+	padding: 15vh 0 5vh;
 
 	.content {
 		color: #ccc;
@@ -16,6 +16,14 @@
 		&::-webkit-scrollbar-thumb {
 			border-radius: 2px;
 			background: orange;
+		}
+
+		> main {
+			width: 100%;
+		}
+		> section {
+			width: 80vw;
+			margin: 0 auto;
 		}
 	}
 }
