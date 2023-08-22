@@ -13,7 +13,7 @@ export default function Home({ meals, category }) {
 				<title>Main Page</title>
 			</Head>
 
-			<SwiperWrap recipe={meals.slice(0, 5)} category={category} />
+			<SwiperWrap recipe={meals.slice(0, 7)} category={category} />
 			{/* 
 				[ Swiper 컴포넌트 작업 구성 ]
 					Visual - Organisms
@@ -49,6 +49,6 @@ export async function getStaticProps() {
 	// props로 데이터를 넘길 때 data 안쪽의 값까지 뽑아낸 후 전달
 	return {
 		props: { ...data, category: newList[randomNum] },
-		revalidate: 10,
+		revalidate: 60 * 60 * 24,
 	};
 }
