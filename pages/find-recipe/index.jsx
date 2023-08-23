@@ -45,7 +45,11 @@ export default function Recipe({ categories }) {
 				{/* 자식 컴포넌트에 이벤트를 전달해야 할 때 이벤트명을 props로 핸들러 함수 전달 */}
 				{/* 자식 컴포넌트에서 이벤트 발생시 어떤 핸들러인지 명시적으로 파악하기 위함 */}
 				{/* State를 변경하는 이벤트 핸들러함수를 onClick props에 담아서 전달 */}
-				<Category items={categories} onClick={setSelected} />
+				<Category
+					items={categories}
+					onClick={setSelected}
+					active={DebouncedSelected}
+				/>
 
 				<Title type={'slogan'} className={clsx(styles.titCategory)}>
 					{DebouncedSelected}

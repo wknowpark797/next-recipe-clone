@@ -7,12 +7,17 @@ function Btn({
 	style,
 	className,
 	onClick,
+	isActive,
 }) {
 	return (
 		<button
 			type={type}
 			style={style}
-			className={clsx(styles.btn, className)}
+			className={clsx(
+				styles.btn,
+				className,
+				isActive ? styles.on : ''
+			)}
 			// 부모로부터 handler라는 공통의 props 이름으로 이벤트핸들러 함수 호출
 			onClick={onClick}
 		>
