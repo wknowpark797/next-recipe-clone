@@ -15,8 +15,8 @@ export const useRecipeByCategory = (selectedCategory) => {
 		{
 			refetchOnMount: false,
 			refetchOnWindowFocus: false,
-			cacheTime: 0,
-			staleTime: 0,
+			cacheTime: 1000 * 60 * 60 * 24,
+			staleTime: 1000 * 60 * 60 * 24,
 			/*
 				[ retry ]
 				- 데이터 요청시도 횟수 (default: 3, 네트워크 상황이 안좋을 때 재시도횟수를 늘림)
