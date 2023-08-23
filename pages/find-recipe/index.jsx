@@ -48,7 +48,14 @@ export default function Recipe({ categories }) {
 
 				{isCategory &&
 					dataByCategory.map((el) => {
-						return <Card key={el.idMeal} imgSrc={el.strMealThumb} />;
+						return (
+							<Card
+								key={el.idMeal}
+								imgSrc={el.strMealThumb}
+								url={`/find-recipe/${el.idMeal}`}
+								txt={el.strMeal}
+							/>
+						);
 					})}
 			</section>
 		</>
