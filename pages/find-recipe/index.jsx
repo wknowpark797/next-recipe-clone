@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import Category from '@/components/molecules/Category/Category';
 import { useRecipeByCategory } from '@/hooks/useRecipe';
 import { useState } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 
 /*
 	[ custom hook ]
@@ -22,8 +23,11 @@ export default function Recipe({ categories }) {
 	const [Selected, setSelected] = useState(categories[0].strCategory);
 
 	// Selected state값이 바뀔때마다 react-query 훅이 호출되면서 새로운 데이터를 패칭
-	const { data, isSuccess } = useRecipeByCategory(Selected);
-	console.log('hooks data: ', data);
+	// const { data, isSuccess } = useRecipeByCategory(Selected);
+
+	// 카테고리 버튼 클릭 디바운싱 처리
+	const DebouncedSelected = useDebounce(Selected);
+	const { data, isSuccess } = useRecipeByCategory(DebouncedSelected);
 
 	return (
 		<>
