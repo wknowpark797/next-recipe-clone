@@ -7,6 +7,7 @@ import { useRecipeByCategory } from '@/hooks/useRecipe';
 import { useState } from 'react';
 import { useDebounce } from '@/hooks/useDebounce';
 import Card from '@/components/molecules/Card/Card';
+import Title from '@/components/atoms/text/Title';
 
 /*
 	[ custom hook ]
@@ -46,17 +47,24 @@ export default function Recipe({ categories }) {
 				{/* State를 변경하는 이벤트 핸들러함수를 onClick props에 담아서 전달 */}
 				<Category items={categories} onClick={setSelected} />
 
-				{isCategory &&
-					dataByCategory.map((el) => {
-						return (
-							<Card
-								key={el.idMeal}
-								imgSrc={el.strMealThumb}
-								url={`/find-recipe/${el.idMeal}`}
-								txt={el.strMeal}
-							/>
-						);
-					})}
+				<Title type={'slogan'} className={clsx(styles.titCategory)}>
+					{DebouncedSelected}
+				</Title>
+
+				<div className={clsx(styles.listFrame)}>
+					{isCategory &&
+						dataByCategory.map((el) => {
+							return (
+								<Card
+									key={el.idMeal}
+									imgSrc={el.strMealThumb}
+									url={`/find-recipe/${el.idMeal}`}
+									txt={el.strMeal}
+									className={clsx(styles.card)}
+								/>
+							);
+						})}
+				</div>
 			</section>
 		</>
 	);
