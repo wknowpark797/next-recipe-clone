@@ -26,6 +26,8 @@ export default function Recipe({ categories }) {
 	// const { data, isSuccess } = useRecipeByCategory(Selected);
 
 	// 카테고리 버튼 클릭 디바운싱 처리
+	// useDebounde는 컴포넌트의 재렌더링 자체를 막는것이 아닌
+	// 특정 state가 변경될때마다 실행되는 무거운 함수의 호출 자체를 Debouncing 처리하기 위함
 	const DebouncedSelected = useDebounce(Selected);
 	const { data, isSuccess } = useRecipeByCategory(DebouncedSelected);
 
