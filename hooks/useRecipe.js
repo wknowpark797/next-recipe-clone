@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
+// Category
 const getRecipeByCategory = async ({ queryKey }) => {
 	const { data } = await axios.get(`/filter.php?c=${queryKey[1]}`);
 	// 해당 커스텀훅으로 호출되는 fetching 함수가 만약 컴포넌트가 마운트되자마자 호출된다면
 	// data값 자체가 없기때문에 meals에서 undefined 오류 발생을 피하기 위함
 	return data?.meals || [];
 };
-
 export const useRecipeByCategory = (selectedCategory) => {
 	return useQuery(
 		['recipeByCategory', selectedCategory],
@@ -30,6 +30,26 @@ export const useRecipeByCategory = (selectedCategory) => {
 				- CSR 방식으로 호출 할 때는 초기값이 undefined이기 때문에 발생하는 에러를 미리 방지
 			*/
 			enabled: selectedCategory !== undefined,
+		}
+	);
+};
+
+// Search
+const getRecipeBySearch = async ({ queryKey }) => {
+	const { data } = await axios.get(`/search.php?c=${queryKey[1]}`);
+	return data?.meals || [];
+};
+export const useRecipeBySearch = (selectedSearch) => {
+	return useQuery(
+		['recipeBySearch', selectedSearch],
+		getRecipeBySearch,
+		{
+			refetchOnMount: false,
+			refetchOnWindowFocus: false,
+			cacheTime: 1000 * 60 * 60 * 24,
+			staleTime: 1000 * 60 * 60 * 24,
+			retry: 3,
+			enabled: selectedSearch !== undefined,
 		}
 	);
 };
