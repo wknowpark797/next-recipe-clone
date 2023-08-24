@@ -56,6 +56,25 @@ export default function App({ Component, pageProps }) {
 }
 
 /*
+	Next 동작방식 ssg, isr 방식으로 프리렌더링되서 만들어지는 페이지는 
+	프리렌더링 방식으로 구현되어 있는 페이지들을 이벤트가 발생하지 않더라도 라우터 설정되어 있는 메뉴에 호버하면
+	해당 데이터를 확인한걸로 예측해서 미리 prefetching 처리한다.
+	해당 페이지 컴포넌트가 라우터명이 변경되서 unmount될 때마다 다음에 prefetch할 데이터 용량을 최소화하기 위해서 style노드를 제거한다.
+
+	Framer-motion AnimatePresence를 이용해서 모션이 끝날때까지 이전 컴포넌트의 unmount 시점을 강제로 holding하고 있으면
+	이미 스타일 제거된 지저분한 페이지가 화면에 계속 노출되는 문제가 발생
+	-> 정적인 스타일은 문제가 없지만 자바스크립트가 동적으로 제어하는 module.scss, styled-component, tailwindCSS에서 모두 위와 같은 문제 발생
+
+	[ 해결방법 ]
+	라우터가 변경되는 시점마다 unmount되서 스타일이 날아가기 직전에 해당 스타일 노드를 head에서부터 복사한 후
+	next 고유 속성명을 제거한다.
+	복사한 style node를 다시 강제로 head에 삽입
+	이렇게 복사된 style node는 next가 제거할 수 없으므로 라우터가 변경되더라도 복사된 스타일이 유지되기 때문에 스타일도 유지할 수 있다.
+	transition이 끝나서 이전 페이지 컴포넌트가 unmount되는 시점에 강제로 복사했던 스타일 노드를 다시 제거한다.
+	해당 기능을 함수로 만들어 root 컴포넌트에서 라우터가 변경될때마다 호출한다.
+*/
+
+/*
 	[ 컴포넌트 렌더링 호출 순서 ]
 	1. _app.js에서 공통의 Layout 템플릿 컴포넌트를 가져와서 전체 컴포넌트를 wrapping 처리
 	2. _app.js에 있는 Component는 page 폴더 안쪽에 있는 각각의 페이지 컴포넌트를 의미
