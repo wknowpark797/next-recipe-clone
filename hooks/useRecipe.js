@@ -8,9 +8,12 @@ const getRecipeByCategory = async ({ queryKey }) => {
 	// data값 자체가 없기때문에 meals에서 undefined 오류 발생을 피하기 위함
 	return data?.meals || [];
 };
-export const useRecipeByCategory = (selectedCategory) => {
+export const useRecipeByCategory = (
+	DebounceCategory,
+	DebounceSearch
+) => {
 	return useQuery(
-		['recipeByCategory', selectedCategory],
+		['recipeByCategory', DebounceCategory],
 		getRecipeByCategory,
 		{
 			refetchOnMount: false,
@@ -29,19 +32,19 @@ export const useRecipeByCategory = (selectedCategory) => {
 				- 지금 상황에서는 SSG방식으로 초기 데이터를 호출하고 있기 때문에 아래 구문을 지정하지 않아도 잘 동작된다.
 				- CSR 방식으로 호출 할 때는 초기값이 undefined이기 때문에 발생하는 에러를 미리 방지
 			*/
-			enabled: selectedCategory !== undefined,
+			enabled: DebounceSearch === '',
 		}
 	);
 };
 
 // Search
 const getRecipeBySearch = async ({ queryKey }) => {
-	const { data } = await axios.get(`/search.php?c=${queryKey[1]}`);
+	const { data } = await axios.get(`/search.php?s=${queryKey[1]}`);
 	return data?.meals || [];
 };
-export const useRecipeBySearch = (selectedSearch) => {
+export const useRecipeBySearch = (DebounceSearch) => {
 	return useQuery(
-		['recipeBySearch', selectedSearch],
+		['recipeBySearch', DebounceSearch],
 		getRecipeBySearch,
 		{
 			refetchOnMount: false,
@@ -49,7 +52,7 @@ export const useRecipeBySearch = (selectedSearch) => {
 			cacheTime: 1000 * 60 * 60 * 24,
 			staleTime: 1000 * 60 * 60 * 24,
 			retry: 3,
-			enabled: selectedSearch !== undefined,
+			enabled: DebounceSearch !== '', // 인수로 들어온 input값이 빈 문자열이면 실행불가 처리
 		}
 	);
 };

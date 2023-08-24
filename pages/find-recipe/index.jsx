@@ -3,7 +3,10 @@ import axios from 'axios';
 import styles from './style.module.scss';
 import clsx from 'clsx';
 import Category from '@/components/molecules/Category/Category';
-import { useRecipeByCategory } from '@/hooks/useRecipe';
+import {
+	useRecipeByCategory,
+	useRecipeBySearch,
+} from '@/hooks/useRecipe';
 import { useState, useEffect } from 'react';
 import { useDebounce } from '@/hooks/useDebounce';
 import Card from '@/components/molecules/Card/Card';
@@ -24,6 +27,7 @@ import SearchBar from '@/components/molecules/SearchBar/SearchBar';
 export default function Recipe({ categories }) {
 	// react-query를 활용하는 queryKey 인수값을 state에 담는다.
 	const [Selected, setSelected] = useState(categories[0].strCategory);
+	const [Search, setSearch] = useState('');
 
 	// Selected state값이 바뀔때마다 react-query 훅이 호출되면서 새로운 데이터를 패칭
 	// const { data, isSuccess } = useRecipeByCategory(Selected);
@@ -32,16 +36,33 @@ export default function Recipe({ categories }) {
 	// useDebounde는 컴포넌트의 재렌더링 자체를 막는것이 아닌
 	// 특정 state가 변경될때마다 실행되는 무거운 함수의 호출 자체를 Debouncing 처리하기 위함
 	const DebouncedSelected = useDebounce(Selected);
-	const { data: dataByCategory, isSuccess: isCategory } =
-		useRecipeByCategory(DebouncedSelected);
-
-	// Search
-	const [Search, setSearch] = useState('');
 	const DebouncedSearch = useDebounce(Search);
 
+	const { data: dataByCategory, isSuccess: isCategory } =
+		useRecipeByCategory(DebouncedSelected, DebouncedSearch);
+	const { data: dataBySearch, isSuccess: isSearch } =
+		useRecipeBySearch(DebouncedSearch);
+
+	// 카테고리 버튼을 클릭할 때 실행
+	// Selected값이 변경되고 새롭게 쿼리 요청을 보내는 조건이 Search값이 비어있어야 가능
+	// Search값을 비운 후 state 변경요청을 보내는 함수
+	const handleClickCategory = (state) => {
+		setSearch('');
+		setSelected(state);
+	};
+
+	// Debouncing되는 search, selected값이 변경될때마다 실행되는 useEffect
 	useEffect(() => {
-		console.log(DebouncedSearch);
-	}, [DebouncedSearch]);
+		if (DebouncedSearch) {
+			// Search값이 있다면 기존의 카테고리 값을 비워야하기 때문에 setSelected 빈문자값을 쿼리로 보내 빈배열을 다시 반환, 결과적으로 해당 데이터는 화면에서 사라진다.
+			setSelected('');
+		} else {
+			// Search값이 없다면 다시 Search를 초기화시킨다.
+			setSearch('');
+			// Selected값을 변경해서 새로 쿼리요청을 보낸다.
+			!DebouncedSelected && setSelected(categories[0].strCategory);
+		}
+	}, [DebouncedSearch, DebouncedSelected, categories]);
 
 	return (
 		<>
@@ -56,7 +77,7 @@ export default function Recipe({ categories }) {
 				{/* State를 변경하는 이벤트 핸들러함수를 onClick props에 담아서 전달 */}
 				<Category
 					items={categories}
-					onClick={setSelected}
+					onClick={handleClickCategory}
 					active={DebouncedSelected}
 				/>
 
@@ -65,6 +86,7 @@ export default function Recipe({ categories }) {
 				</Title>
 
 				<SearchBar
+					inputType={'text'}
 					isBtn={false}
 					placeholder={'search'}
 					value={Search}
@@ -79,7 +101,20 @@ export default function Recipe({ categories }) {
 									key={el.idMeal}
 									imgSrc={el.strMealThumb}
 									url={`/find-recipe/${el.idMeal}`}
-									txt={el.strMeal}
+									txt={`category+${el.strMeal}`}
+									className={clsx(styles.card)}
+								/>
+							);
+						})}
+
+					{isSearch &&
+						dataBySearch.map((el) => {
+							return (
+								<Card
+									key={el.idMeal}
+									imgSrc={el.strMealThumb}
+									url={`/find-recipe/${el.idMeal}`}
+									txt={`search+${el.strMeal}`}
 									className={clsx(styles.card)}
 								/>
 							);
