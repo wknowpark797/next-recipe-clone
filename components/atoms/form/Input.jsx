@@ -15,7 +15,7 @@ function Input({
 			placeholder={placeholder}
 			className={clsx(styles.input, className)}
 			value={value}
-			onChange={onChange}
+			onChange={(e) => onChange(e.target.value)}
 			style={style}
 		/>
 	);

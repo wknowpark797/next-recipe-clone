@@ -4,10 +4,11 @@ import styles from './style.module.scss';
 import clsx from 'clsx';
 import Category from '@/components/molecules/Category/Category';
 import { useRecipeByCategory } from '@/hooks/useRecipe';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDebounce } from '@/hooks/useDebounce';
 import Card from '@/components/molecules/Card/Card';
 import Title from '@/components/atoms/text/Title';
+import SearchBar from '@/components/molecules/SearchBar/SearchBar';
 
 /*
 	[ custom hook ]
@@ -34,6 +35,14 @@ export default function Recipe({ categories }) {
 	const { data: dataByCategory, isSuccess: isCategory } =
 		useRecipeByCategory(DebouncedSelected);
 
+	// Search
+	const [Search, setSearch] = useState('');
+	const DebouncedSearch = useDebounce(Search);
+
+	useEffect(() => {
+		console.log(DebouncedSearch);
+	}, [DebouncedSearch]);
+
 	return (
 		<>
 			<Head>
@@ -54,6 +63,13 @@ export default function Recipe({ categories }) {
 				<Title type={'slogan'} className={clsx(styles.titCategory)}>
 					{DebouncedSelected}
 				</Title>
+
+				<SearchBar
+					isBtn={false}
+					placeholder={'search'}
+					value={Search}
+					onChange={setSearch}
+				/>
 
 				<div className={clsx(styles.listFrame)}>
 					{isCategory &&

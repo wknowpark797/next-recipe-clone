@@ -9,10 +9,16 @@ function SearchBar({
 	inputType,
 	value,
 	onChange,
+	placeholder,
 }) {
 	return (
 		<div className={clsx(styles.searchBar)}>
-			<Input type={inputType} value={value} onChange={onChange} />
+			<Input
+				type={inputType}
+				value={value}
+				onChange={onChange}
+				placeholder={placeholder}
+			/>
 			{isBtn && <Btn>{btnText}</Btn>}
 		</div>
 	);
