@@ -25,6 +25,9 @@ import SearchBar from '@/components/molecules/SearchBar/SearchBar';
 */
 
 export default function Recipe({ categories }) {
+	// Selected, Search 값이 변경되면 컴포넌트가 재호출되면서
+	// 자동으로 react-query 훅이 해당 state값을 인수로 전달해서 자동으로 데이터 fetching 처리
+	// 미리 지정한 stale, cache가 남아있다면 데이터를 refetching하지 않는다.
 	// react-query를 활용하는 queryKey 인수값을 state에 담는다.
 	const [Selected, setSelected] = useState(categories[0].strCategory);
 	const [Search, setSearch] = useState('');
@@ -32,12 +35,13 @@ export default function Recipe({ categories }) {
 	// Selected state값이 바뀔때마다 react-query 훅이 호출되면서 새로운 데이터를 패칭
 	// const { data, isSuccess } = useRecipeByCategory(Selected);
 
-	// 카테고리 버튼 클릭 디바운싱 처리
+	// 카테고리 버튼 클릭 디바운싱 처리 (핸들러 호출 횟수를 줄인다.)
 	// useDebounde는 컴포넌트의 재렌더링 자체를 막는것이 아닌
 	// 특정 state가 변경될때마다 실행되는 무거운 함수의 호출 자체를 Debouncing 처리하기 위함
 	const DebouncedSelected = useDebounce(Selected);
 	const DebouncedSearch = useDebounce(Search);
 
+	// debounce되는 값이 변경될 때 react-query 훅이 호출된다.
 	const { data: dataByCategory, isSuccess: isCategory } =
 		useRecipeByCategory(DebouncedSelected, DebouncedSearch);
 	const { data: dataBySearch, isSuccess: isSearch } =
@@ -58,6 +62,7 @@ export default function Recipe({ categories }) {
 			setSelected('');
 		} else {
 			// Search값이 없다면 다시 Search를 초기화시킨다.
+			// 처음 mount되서 검색어가 없거나 사용자에 의해 검색어가 비워졌을 경우
 			setSearch('');
 			// Selected값을 변경해서 새로 쿼리요청을 보낸다.
 			!DebouncedSelected && setSelected(categories[0].strCategory);
