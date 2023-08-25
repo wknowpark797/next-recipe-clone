@@ -12,6 +12,7 @@ import { useDebounce } from '@/hooks/useDebounce';
 import Card from '@/components/molecules/Card/Card';
 import Title from '@/components/atoms/text/Title';
 import SearchBar from '@/components/molecules/SearchBar/SearchBar';
+import Text from '@/components/atoms/text/Text';
 
 /*
 	[ custom hook ]
@@ -86,8 +87,11 @@ export default function Recipe({ categories }) {
 					active={DebouncedSelected}
 				/>
 
+				{/* 현재 출력되는 값에 따라 제목 변경 */}
 				<Title type={'slogan'} className={clsx(styles.titCategory)}>
-					{DebouncedSelected}
+					{DebouncedSelected
+						? DebouncedSelected
+						: `Result: ${DebouncedSearch}`}
 				</Title>
 
 				<SearchBar
@@ -99,6 +103,7 @@ export default function Recipe({ categories }) {
 				/>
 
 				<div className={clsx(styles.listFrame)}>
+					{/* Category 데이터가 있을 때 */}
 					{isCategory &&
 						dataByCategory.map((el) => {
 							return (
@@ -112,6 +117,7 @@ export default function Recipe({ categories }) {
 							);
 						})}
 
+					{/* Search 데이터가 있을 때 */}
 					{isSearch &&
 						dataBySearch.map((el) => {
 							return (
@@ -124,6 +130,13 @@ export default function Recipe({ categories }) {
 								/>
 							);
 						})}
+
+					{/* Category가 없고 Search가 있는데 Search 결과 배열값이 없을 때 */}
+					{!isCategory && isSearch && dataBySearch.length === 0 && (
+						<Text>
+							No Results <br /> Try another Recipe Name.
+						</Text>
+					)}
 				</div>
 			</section>
 		</>
