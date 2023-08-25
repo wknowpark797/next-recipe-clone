@@ -78,7 +78,7 @@ function SwiperWrap({ recipe, category }) {
 											tag={'h3'}
 											// 다이나믹 라우팅으로 기본 id값과 ?뒤에 쿼리스트링 값을 전달하면
 											// 해당 값을 다이나믹 라우팅이 적용되는 페이지 안에서 비구조화할당으로 받을 수 있다.
-											url={`/find-recipe/${item.idMeal}?name=${item.strMeal}&url=${item.strMealThumb}`}
+											url={`/find-recipe/${item.idMeal}`}
 											type={'slogan'}
 										>
 											{item.strMeal.length > 25
