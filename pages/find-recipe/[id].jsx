@@ -5,11 +5,40 @@ import { useRouter } from 'next/router';
 import styles from './detail.module.scss';
 import clsx from 'clsx';
 import { RingLoader } from 'react-spinners';
+import { useState, useEffect } from 'react';
+import Table from '@/components/atoms/Table/Table';
 
 function Detail() {
 	const router = useRouter();
 	const { id } = router.query;
 	const { data, isSuccess } = useRecipeById(id);
+	console.log(isSuccess && data);
+
+	const [TableData, setTableData] = useState([]);
+
+	// 무한루프에 빠지지 않도록 해당 컴포넌트에서 data를 받았을 때 한번만 호출해서 state에 저장 처리
+	useEffect(() => {
+		if (data) {
+			const keys = Object.keys(data);
+			// 레시피 정보 객체에서 strIngredient 문자로 시작하는 키값만 필터
+			const filterKeys1 = keys.filter((key) =>
+				key.startsWith('strIngredient')
+			);
+			// value값이 빈문자이거나 null이면 제외
+			const filterKeys2 = filterKeys1.filter(
+				(key) => data[key] !== '' && data[key] !== null
+			);
+			// 필터링된 키값으로 재료순서, 재료명, 재료량을 객체로 변환 후 배열로 반환
+			const ingredients = filterKeys2.map((key, idx) => ({
+				index: idx + 1,
+				ingredient: data[key],
+				measure: data[`strMeasure${idx + 1}`],
+			}));
+
+			console.log(ingredients);
+			setTableData(ingredients);
+		}
+	}, [data]);
 
 	return (
 		<section className={clsx(styles.detail)}>
@@ -35,6 +64,8 @@ function Detail() {
 					</div>
 				</>
 			)}
+
+			<Table data={TableData} title={data?.strMeal} />
 		</section>
 	);
 }
