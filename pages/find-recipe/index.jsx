@@ -132,8 +132,10 @@ export default function Recipe({ categories }) {
 						})}
 
 					{/* Category가 없고 Search가 있는데 Search 결과 배열값이 없을 때 */}
-					{!isCategory && isSearch && dataBySearch.length === 0 && (
-						<Text>
+					{isSearch && dataBySearch.length === 0 && (
+						<Text
+							style={{ fontSize: 20, marginTop: 80, color: 'orange' }}
+						>
 							No Results <br /> Try another Recipe Name.
 						</Text>
 					)}
