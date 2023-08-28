@@ -75,7 +75,7 @@ function Detail() {
 
 			<Table data={TableData} title={data?.strMeal} />
 
-			<List data={ListData} tag={'ol'} />
+			<List data={ListData} url={Array(15).fill('a')} tag={'ol'} />
 		</section>
 	);
 }

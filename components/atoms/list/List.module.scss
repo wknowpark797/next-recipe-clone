@@ -1,2 +1,15 @@
 .list {
+	margin: 50px 0;
+
+	li {
+		color: #ddd;
+
+		a {
+			color: inherit;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
 }
