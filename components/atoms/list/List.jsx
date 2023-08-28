@@ -17,7 +17,7 @@ function List({ data, tag = 'ul', className, style }) {
 				{
 					key: idx,
 				},
-				el
+				tag === 'ol' ? `${idx + 1} - ${el}` : el
 			)
 		)
 	);
