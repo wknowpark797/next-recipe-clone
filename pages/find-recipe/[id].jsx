@@ -41,6 +41,8 @@ function Detail() {
 			// 레시피 순서
 			const instructions = data.strInstructions
 				.split('.')
+				// 반환된 문자 배열중에서 숫자값이 포함되어 있는 배열 제외처리
+				.filter((text) => !/\d/.test(text))
 				.map((text) => text.replace('\r\n', '').trim() + '.')
 				.filter((text) => text !== '.');
 
