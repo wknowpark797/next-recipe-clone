@@ -7,14 +7,15 @@ import clsx from 'clsx';
 import { RingLoader } from 'react-spinners';
 import { useState, useEffect } from 'react';
 import Table from '@/components/atoms/Table/Table';
+import List from '@/components/atoms/list/List';
 
 function Detail() {
 	const router = useRouter();
 	const { id } = router.query;
 	const { data, isSuccess } = useRecipeById(id);
-	console.log(isSuccess && data);
 
 	const [TableData, setTableData] = useState([]);
+	const [ListData, setListData] = useState([]);
 
 	// 무한루프에 빠지지 않도록 해당 컴포넌트에서 data를 받았을 때 한번만 호출해서 state에 저장 처리
 	useEffect(() => {
@@ -35,8 +36,15 @@ function Detail() {
 				measure: data[`strMeasure${idx + 1}`],
 			}));
 
-			console.log(ingredients);
 			setTableData(ingredients);
+
+			// 레시피 순서
+			const instructions = data.strInstructions
+				.split('.')
+				.map((text) => text.replace('\r\n', '').trim() + '.')
+				.filter((text) => text !== '.');
+
+			setListData(instructions);
 		}
 	}, [data]);
 
@@ -66,6 +74,8 @@ function Detail() {
 			)}
 
 			<Table data={TableData} title={data?.strMeal} />
+
+			<List data={ListData} />
 		</section>
 	);
 }
