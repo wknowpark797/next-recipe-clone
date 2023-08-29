@@ -23,6 +23,29 @@ function Detail() {
 	const [ListData, setListData] = useState([]);
 	const [Saved, setSaved] = useState(false);
 
+	// recipeId값 저장, 삭제 토글 함수
+	const handleSave = () => {
+		const savedRecipe = JSON.parse(
+			localStorage.getItem('savedRecipe')
+		);
+
+		if (!Saved) {
+			savedRecipe.push(data.idMeal);
+			localStorage.setItem(
+				'savedRecipe',
+				JSON.stringify(savedRecipe)
+			);
+			setSaved(true);
+		} else {
+			savedRecipe.splice(savedRecipe.indexOf(data.idMeal), 1);
+			localStorage.setItem(
+				'savedRecipe',
+				JSON.stringify(savedRecipe)
+			);
+			setSaved(false);
+		}
+	};
+
 	// router로 들어오는 id값이 변경될때마다 실행되는 useEffect
 	useEffect(() => {
 		if (localStorage.getItem('savedRecipe')) {
@@ -110,7 +133,7 @@ function Detail() {
 				</>
 			)}
 
-			<Btn>Add to My Favorite</Btn>
+			<Btn onClick={handleSave}>Add to My Favorite</Btn>
 
 			<Table data={TableData} title={data?.strMeal} />
 
