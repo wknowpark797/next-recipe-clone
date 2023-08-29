@@ -10,6 +10,10 @@ import Table from '@/components/atoms/Table/Table';
 import List from '@/components/atoms/list/List';
 
 function Detail() {
+	// 정규표현식에서 해당 조건이 포함이 아닌 정확하게 조건에 부합될때만 처리 ^조건$
+	// 표현식 뒤의 +는 해당 조건의 값이 반복되는 경우에도 true로 평가
+	// const result = /^\d+[.][' ']$/.test('2');
+
 	const router = useRouter();
 	const { id } = router.query;
 	const { data, isSuccess } = useRecipeById(id);
@@ -40,12 +44,16 @@ function Detail() {
 
 			// 레시피 순서
 			const instructions = data.strInstructions
-				.split('.')
-				// 반환된 문자 배열중에서 숫자값이 포함되어 있는 배열 제외처리
-				.filter((text) => !/\d/.test(text))
-				.map((text) => text.replace('\r\n', '').trim() + '.')
-				.filter((text) => text !== '.');
+				.split('\r\n')
+				.map((text) =>
+					text.includes('.\t')
+						? text.replace('.\t', '+').split('+')[1]
+						: text
+				)
+				// 원본 문자열에 줄바꿈 정규표현식이 여러번 들어가 있는 문장의 경우 빈문장을 배열로 반환하기 때문에 해당 배열값 제거
+				.filter((text) => text !== '');
 
+			console.log(instructions);
 			setListData(instructions);
 		}
 	}, [data]);
