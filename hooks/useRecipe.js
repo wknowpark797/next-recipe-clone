@@ -85,6 +85,10 @@ export const useRecipesByIds = (array) => {
 	const queries = array.map((id) => ({
 		queryKey: ['recipeById', id],
 		queryFn: getRecipeById,
+		refetchOnMount: false,
+		refetchOnWindowFocus: false,
+		cacheTime: 1000 * 60 * 60 * 24,
+		staleTime: 1000 * 60 * 60 * 24,
 	}));
 
 	/*
