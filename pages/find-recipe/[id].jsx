@@ -53,7 +53,7 @@ function Detail() {
 				// 원본 문자열에 줄바꿈 정규표현식이 여러번 들어가 있는 문장의 경우 빈문장을 배열로 반환하기 때문에 해당 배열값 제거
 				.filter((text) => text !== '');
 
-			console.log(instructions);
+			// console.log(instructions);
 			setListData(instructions);
 		}
 	}, [data]);
