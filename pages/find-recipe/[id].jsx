@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import Table from '@/components/atoms/Table/Table';
 import List from '@/components/atoms/list/List';
 import Btn from '@/components/atoms/button/Btn';
+import Text from '@/components/atoms/text/Text';
 
 function Detail() {
 	// 정규표현식에서 해당 조건이 포함이 아닌 정확하게 조건에 부합될때만 처리 ^조건$
@@ -136,6 +137,7 @@ function Detail() {
 			<Btn onClick={handleSave} className={clsx(Saved && styles.del)}>
 				{Saved ? '즐겨찾기 제거하기' : '즐겨찾기 추가하기'}
 			</Btn>
+			{Saved && <Text>즐겨찾기에 이미 추가된 레시피입니다.</Text>}
 
 			<Table data={TableData} title={data?.strMeal} />
 
