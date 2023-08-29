@@ -133,7 +133,9 @@ function Detail() {
 				</>
 			)}
 
-			<Btn onClick={handleSave}>Add to My Favorite</Btn>
+			<Btn onClick={handleSave} className={clsx(Saved && styles.del)}>
+				{Saved ? '즐겨찾기 제거하기' : '즐겨찾기 추가하기'}
+			</Btn>
 
 			<Table data={TableData} title={data?.strMeal} />
 
