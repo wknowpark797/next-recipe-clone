@@ -8,6 +8,7 @@ import { RingLoader } from 'react-spinners';
 import { useState, useEffect } from 'react';
 import Table from '@/components/atoms/Table/Table';
 import List from '@/components/atoms/list/List';
+import Btn from '@/components/atoms/button/Btn';
 
 function Detail() {
 	// 정규표현식에서 해당 조건이 포함이 아닌 정확하게 조건에 부합될때만 처리 ^조건$
@@ -20,6 +21,24 @@ function Detail() {
 
 	const [TableData, setTableData] = useState([]);
 	const [ListData, setListData] = useState([]);
+	const [Saved, setSaved] = useState(false);
+
+	// router로 들어오는 id값이 변경될때마다 실행되는 useEffect
+	useEffect(() => {
+		if (localStorage.getItem('savedRecipe')) {
+			const savedRecipe = JSON.parse(
+				localStorage.getItem('savedRecipe')
+			);
+
+			if (savedRecipe.includes(id)) {
+				setSaved(true);
+			} else {
+				setSaved(false);
+			}
+		} else {
+			localStorage.setItem('savedRecipe', JSON.stringify([]));
+		}
+	}, [id]);
 
 	// 무한루프에 빠지지 않도록 해당 컴포넌트에서 data를 받았을 때 한번만 호출해서 state에 저장 처리
 	useEffect(() => {
@@ -90,6 +109,8 @@ function Detail() {
 					</div>
 				</>
 			)}
+
+			<Btn>Add to My Favorite</Btn>
 
 			<Table data={TableData} title={data?.strMeal} />
 
