@@ -42,7 +42,9 @@ function Layout({ children }) {
 				<Header />
 
 				<section className={clsx(styles.content)}>
-					<Breadcrumb data={Path} isActive={IsShow} />
+					{router.asPath !== '/' && (
+						<Breadcrumb data={Path} isActive={IsShow} />
+					)}
 					{children}
 				</section>
 
