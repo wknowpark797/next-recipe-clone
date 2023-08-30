@@ -110,7 +110,7 @@ export default function Recipe({ categories }) {
 								<Card
 									key={el.idMeal}
 									imgSrc={el.strMealThumb}
-									url={`/find-recipe/${el.idMeal}`}
+									url={`/find-recipe/${el.idMeal}?name=${el.strMeal}`}
 									txt={`category+${el.strMeal}`}
 									className={clsx(styles.card)}
 								/>
@@ -124,7 +124,7 @@ export default function Recipe({ categories }) {
 								<Card
 									key={el.idMeal}
 									imgSrc={el.strMealThumb}
-									url={`/find-recipe/${el.idMeal}`}
+									url={`/find-recipe/${el.idMeal}?name=${el.strMeal}`}
 									txt={`search+${el.strMeal}`}
 									className={clsx(styles.card)}
 								/>

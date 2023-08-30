@@ -14,7 +14,6 @@ function Layout({ children }) {
 	// Layout은 항상 mount가 된 상태 - 라우터만 변경
 	useEffect(() => {
 		const arr = router.asPath.split('/');
-		arr[0] = 'home';
 		setPath(arr);
 	}, [router]);
 

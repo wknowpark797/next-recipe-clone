@@ -35,7 +35,7 @@ function Favorite() {
 								<Card
 									key={data.idMeal}
 									imgSrc={data.strMealThumb}
-									url={`/find-recipe/${data.idMeal}`}
+									url={`/find-recipe/${data.idMeal}?name=${data.strMeal}`}
 									txt={`category+${data.strMeal}`}
 									className={clsx(styles.card)}
 								/>
