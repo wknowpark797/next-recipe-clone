@@ -1,2 +1,32 @@
 .breadcrumb {
+	opacity: 0;
+	width: 100%;
+	padding: 10px 10vw 20px;
+	text-align: right;
+	transform: translateX(-70px);
+
+	em {
+		font-size: 14px;
+
+		&:hover {
+			color: orangered;
+		}
+	}
+	strong {
+		font-size: 14px;
+		font-style: italic;
+		color: orange;
+		font-weight: bold;
+	}
+	span {
+		font-size: 12px;
+		opacity: 0.7;
+		margin: 0 10px;
+	}
+
+	&.on {
+		opacity: 0.7;
+		transform: translateX(0);
+		transition: opacity 0.5s, transform 0.5s;
+	}
 }

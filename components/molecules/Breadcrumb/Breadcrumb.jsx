@@ -3,9 +3,12 @@ import Text from '@/components/atoms/text/Text';
 import styles from './Breadcrumb.module.scss';
 import clsx from 'clsx';
 
-function Breadcrumb({ data }) {
+function Breadcrumb({ data, isActive }) {
 	return (
-		<nav className={clsx(styles.breadcrumb)}>
+		// isActive값이 true일 때 on 클래스 추가
+		<nav
+			className={clsx(styles.breadcrumb, isActive ? styles.on : '')}
+		>
 			{data.map((name, idx) => {
 				// 라우터명 문자값에 '-'있을 때 처리
 				const result = name.includes('-')
