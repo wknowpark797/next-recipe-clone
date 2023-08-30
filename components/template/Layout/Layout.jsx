@@ -3,8 +3,21 @@ import Header from '../../organisms/Header/Header';
 import styles from './Layout.module.scss';
 import clsx from 'clsx';
 import Footer from '@/components/organisms/Footer/Footer';
+import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
+import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
 
 function Layout({ children }) {
+	const router = useRouter();
+	const [Path, setPath] = useState([]);
+
+	// Layout은 항상 mount가 된 상태 - 라우터만 변경
+	useEffect(() => {
+		const arr = router.asPath.split('/');
+		arr[0] = 'home';
+		setPath(arr);
+	}, [router]);
+
 	return (
 		<>
 			<Head>
@@ -21,7 +34,12 @@ function Layout({ children }) {
 
 			<main className={clsx(styles.layout)}>
 				<Header />
-				<section className={clsx(styles.content)}>{children}</section>
+
+				<section className={clsx(styles.content)}>
+					<Breadcrumb data={Path} />
+					{children}
+				</section>
+
 				<Footer />
 			</main>
 		</>
