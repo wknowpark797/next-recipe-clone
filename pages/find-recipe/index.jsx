@@ -7,7 +7,7 @@ import {
 	useRecipeByCategory,
 	useRecipeBySearch,
 } from '@/hooks/useRecipe';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDebounce } from '@/hooks/useDebounce';
 import Card from '@/components/molecules/Card/Card';
 import Title from '@/components/atoms/text/Title';
@@ -26,6 +26,9 @@ import Text from '@/components/atoms/text/Text';
 */
 
 export default function Recipe({ categories }) {
+	const names = useRef([]);
+	names.current = categories.map((category) => category.strCategory);
+
 	// Selected, Search 값이 변경되면 컴포넌트가 재호출되면서
 	// 자동으로 react-query 훅이 해당 state값을 인수로 전달해서 자동으로 데이터 fetching 처리
 	// 미리 지정한 stale, cache가 남아있다면 데이터를 refetching하지 않는다.
@@ -82,7 +85,7 @@ export default function Recipe({ categories }) {
 				{/* 자식 컴포넌트에서 이벤트 발생시 어떤 핸들러인지 명시적으로 파악하기 위함 */}
 				{/* State를 변경하는 이벤트 핸들러함수를 onClick props에 담아서 전달 */}
 				<Category
-					items={categories}
+					items={names.current}
 					onClick={handleClickCategory}
 					active={DebouncedSelected}
 				/>

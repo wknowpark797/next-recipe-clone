@@ -5,14 +5,14 @@ import clsx from 'clsx';
 function Category({ items, onClick, active }) {
 	return (
 		<nav className={clsx(styles.category)}>
-			{items.map((item) => {
+			{items.map((item, idx) => {
 				return (
 					<Btn
-						key={item.idCategory}
-						onClick={() => onClick(item.strCategory)}
-						isActive={item.strCategory === active}
+						key={idx}
+						onClick={() => onClick(items[idx])}
+						isActive={active === items[idx]}
 					>
-						{item.strCategory}
+						{item}
 					</Btn>
 				);
 			})}
