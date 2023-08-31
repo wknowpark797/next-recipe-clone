@@ -4,6 +4,7 @@ import styles from './Pic.module.scss';
 import Link from 'next/link';
 import { RingLoader } from 'react-spinners';
 import { useState } from 'react';
+import { useThemeColor } from '@/hooks/useThemeColor';
 
 // react-spinners 활용
 export function Pic({
@@ -17,6 +18,7 @@ export function Pic({
 	url,
 }) {
 	const [IsLoaded, setIsLoaded] = useState(false);
+	const { point } = useThemeColor();
 
 	return (
 		<div className={clsx(styles.pic, className)} style={style}>
@@ -67,7 +69,7 @@ export function Pic({
 					transform: 'translate(-50%, -50%)',
 				}}
 				size={100}
-				color={'aquamarine'}
+				color={point}
 				loading={!IsLoaded}
 			/>
 		</div>

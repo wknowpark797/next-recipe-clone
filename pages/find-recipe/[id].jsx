@@ -10,11 +10,14 @@ import Table from '@/components/atoms/Table/Table';
 import List from '@/components/atoms/list/List';
 import Btn from '@/components/atoms/button/Btn';
 import Text from '@/components/atoms/text/Text';
+import { useThemeColor } from '@/hooks/useThemeColor';
 
 function Detail() {
 	// 정규표현식에서 해당 조건이 포함이 아닌 정확하게 조건에 부합될때만 처리 ^조건$
 	// 표현식 뒤의 +는 해당 조건의 값이 반복되는 경우에도 true로 평가
 	// const result = /^\d+[.][' ']$/.test('2');
+
+	const { point } = useThemeColor();
 
 	const router = useRouter();
 	const { id } = router.query;
@@ -120,7 +123,7 @@ function Detail() {
 					transform: 'translate(-50%, -50%)',
 				}}
 				size={100}
-				color={'aquamarine'}
+				color={point}
 				loading={!isSuccess}
 			/>
 
