@@ -2,7 +2,7 @@ import Btn from '@/components/atoms/button/Btn';
 import styles from './Category.module.scss';
 import clsx from 'clsx';
 
-function Category({ items, onClick, active }) {
+function Category({ items, onClick, active, names }) {
 	return (
 		<nav className={clsx(styles.category)}>
 			{items.map((item, idx) => {
@@ -12,7 +12,7 @@ function Category({ items, onClick, active }) {
 						onClick={() => onClick(items[idx])}
 						isActive={active === items[idx]}
 					>
-						{item}
+						{names ? names[idx] : item}
 					</Btn>
 				);
 			})}
