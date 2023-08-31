@@ -4,15 +4,20 @@ import clsx from 'clsx';
 import Text from '@/components/atoms/text/Text';
 import { BounceLoader } from 'react-spinners';
 import Btn from '@/components/atoms/button/Btn';
+import { useGlobalData } from '@/hooks/useGlobalContext';
 
 function Footer() {
+	const { setTheme } = useGlobalData();
+
 	return (
 		<footer className={clsx(styles.footer)}>
 			{/* 테마 컬러 변경 */}
 			<nav>
-				<Btn>Orange</Btn>
-				<Btn>Hotpink</Btn>
-				<Btn>Aquamarine</Btn>
+				{['Orange', 'Hotpink', 'Aquamarine'].map((el, idx) => (
+					<Btn key={idx} onClick={() => setTheme(`theme${idx + 1}`)}>
+						{el}
+					</Btn>
+				))}
 			</nav>
 
 			<Title style={{ fontSize: 16, color: '#777' }}>LOGO</Title>
