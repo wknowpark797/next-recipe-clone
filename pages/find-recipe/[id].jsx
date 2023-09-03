@@ -2,7 +2,6 @@ import { Pic } from '@/components/atoms/pic/Pic';
 import { Title } from '@/components/atoms/text/Title';
 import { useRecipeById } from '@/hooks/useRecipe';
 import { useRouter } from 'next/router';
-import styles from './detail.module.scss';
 import clsx from 'clsx';
 import { RingLoader } from 'react-spinners';
 import { useState, useEffect } from 'react';
@@ -11,17 +10,22 @@ import { List } from '@/components/atoms/list/List';
 import { Btn } from '@/components/atoms/button/Btn';
 import { Text } from '@/components/atoms/text/Text';
 import { useThemeColor } from '@/hooks/useThemeColor';
+import styles from './detail.module.scss';
 
 function Detail() {
-	// 정규표현식에서 해당 조건이 포함이 아닌 정확하게 조건에 부합될때만 처리 ^조건$
-	// 표현식 뒤의 +는 해당 조건의 값이 반복되는 경우에도 true로 평가
-	// const result = /^\d+[.][' ']$/.test('2');
+	/*
+		^조건$
+			- 정규표현식에서 해당 조건이 포함이 아닌 정확하게 조건에 부합될때만 처리
+
+		표현식 뒤의 +는 해당 조건의 값이 반복되는 경우에도 true로 평가
+
+		ex. const result = /^\d+[.][' ']$/.test('2');
+	*/
 
 	const { point } = useThemeColor();
-
 	const router = useRouter();
 	const { id } = router.query;
-	const { data, isSuccess } = useRecipeById(id);
+	const { data } = useRecipeById(id);
 
 	const [TableData, setTableData] = useState([]);
 	const [ListData, setListData] = useState([]);
@@ -124,27 +128,35 @@ function Detail() {
 				}}
 				size={100}
 				color={point}
-				loading={!isSuccess}
+				loading={!data}
 			/>
 
-			{isSuccess && (
+			{data && (
 				<>
-					<Title type={'slogan'}>{data.strMeal}</Title>
+					<Title
+						type={'slogan'}
+						style={{ color: point, hoverColor: point }}
+					>
+						{data.strMeal}
+					</Title>
 
 					<div className={clsx(styles.picFrame)}>
 						<Pic imgSrc={data.strMealThumb} />
 					</div>
+
+					<Btn
+						onClick={handleSave}
+						className={clsx(Saved && styles.del)}
+					>
+						{Saved ? '즐겨찾기 제거하기' : '즐겨찾기 추가하기'}
+					</Btn>
+					{Saved && <Text>즐겨찾기에 이미 추가된 레시피입니다.</Text>}
+
+					<Table data={TableData} title={data.strMeal} />
+
+					<List data={ListData} tag={'ol'} />
 				</>
 			)}
-
-			<Btn onClick={handleSave} className={clsx(Saved && styles.del)}>
-				{Saved ? '즐겨찾기 제거하기' : '즐겨찾기 추가하기'}
-			</Btn>
-			{Saved && <Text>즐겨찾기에 이미 추가된 레시피입니다.</Text>}
-
-			<Table data={TableData} title={data?.strMeal} />
-
-			<List data={ListData} url={Array(15).fill('a')} tag={'ol'} />
 		</section>
 	);
 }

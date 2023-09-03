@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import axios from 'axios';
-import styles from './style.module.scss';
 import clsx from 'clsx';
 import { Category } from '@/components/molecules/Category/Category';
 import {
@@ -13,6 +12,8 @@ import { Card } from '@/components/molecules/Card/Card';
 import { Title } from '@/components/atoms/text/Title';
 import { SearchBar } from '@/components/molecules/SearchBar/SearchBar';
 import { Text } from '@/components/atoms/text/Text';
+import { useThemeColor } from '@/hooks/useThemeColor';
+import styles from './style.module.scss';
 
 /*
 	[ custom hook ]
@@ -26,6 +27,7 @@ import { Text } from '@/components/atoms/text/Text';
 */
 
 export default function Recipe({ categories }) {
+	const { point } = useThemeColor();
 	const names = useRef([]);
 	names.current = categories.map((category) => category.strCategory);
 
@@ -88,22 +90,29 @@ export default function Recipe({ categories }) {
 					items={names.current}
 					onClick={handleClickCategory}
 					active={DebouncedSelected}
+					className={clsx(styles.category)}
 				/>
 
-				{/* 현재 출력되는 값에 따라 제목 변경 */}
-				<Title type={'slogan'} className={clsx(styles.titCategory)}>
-					{DebouncedSelected
-						? DebouncedSelected
-						: `Result: ${DebouncedSearch}`}
-				</Title>
+				<article className={clsx(styles.titBox)}>
+					{/* 현재 출력되는 값에 따라 제목 변경 */}
+					<Title
+						type={'slogan'}
+						className={clsx(styles.titCategory)}
+						style={{ color: point, hoverColor: point }}
+					>
+						{DebouncedSelected
+							? DebouncedSelected
+							: `Result: ${DebouncedSearch}`}
+					</Title>
 
-				<SearchBar
-					inputType={'text'}
-					isBtn={false}
-					placeholder={'search'}
-					value={Search}
-					onChange={setSearch}
-				/>
+					<SearchBar
+						inputType={'text'}
+						isBtn={false}
+						placeholder={'search'}
+						value={Search}
+						onChange={setSearch}
+					/>
+				</article>
 
 				<div className={clsx(styles.listFrame)}>
 					{/* Category 데이터가 있을 때 */}
@@ -114,7 +123,7 @@ export default function Recipe({ categories }) {
 									key={el.idMeal}
 									imgSrc={el.strMealThumb}
 									url={`/find-recipe/${el.idMeal}?name=${el.strMeal}`}
-									txt={`category+${el.strMeal}`}
+									txt={`${el.strMeal}`}
 									className={clsx(styles.card)}
 								/>
 							);
@@ -127,8 +136,8 @@ export default function Recipe({ categories }) {
 								<Card
 									key={el.idMeal}
 									imgSrc={el.strMealThumb}
-									url={`/find-recipe/${el.idMeal}?name=${el.strMeal}`}
-									txt={`search+${el.strMeal}`}
+									url={`/find-recipe/${el.idMeal}`}
+									txt={`${el.strMeal}`}
 									className={clsx(styles.card)}
 								/>
 							);

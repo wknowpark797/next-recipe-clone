@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import Header from '../../organisms/Header/Header';
-import styles from './Layout.module.scss';
 import clsx from 'clsx';
 import Footer from '@/components/organisms/Footer/Footer';
 import { useRouter } from 'next/router';
@@ -8,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { Breadcrumb } from '@/components/molecules/Breadcrumb/Breadcrumb';
 import { useGlobalData } from '@/hooks/useGlobalContext';
 import { motion, AnimatePresence, cubicBezier } from 'framer-motion';
+import styles from './Layout.module.scss';
 
 function Layout({ children }) {
 	const { Theme } = useGlobalData();

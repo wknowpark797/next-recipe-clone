@@ -4,9 +4,6 @@ import { SwiperWrap } from '@/components/organisms/Swiper/Swiper';
 
 // https://www.themealdb.com 라이브러리 활용
 export default function Home({ meals, category }) {
-	// console.log('meals: ', meals);
-	// console.log('category: ', category);
-
 	return (
 		<>
 			<Head>
@@ -16,17 +13,6 @@ export default function Home({ meals, category }) {
 			<main>
 				<SwiperWrap recipe={meals.slice(0, 7)} category={category} />
 			</main>
-			{/* 
-				[ Swiper 컴포넌트 작업 구성 ]
-					Visual - Organisms
-					SwiperWrapper - molecules
-					SwiperSlide - atoms
-					ImgList - molecules
-					ImgSlide - atoms
-					Controls - molecules
-					Counter - molecules
-					Button - atoms
-			*/}
 		</>
 	);
 }
