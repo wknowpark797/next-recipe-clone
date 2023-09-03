@@ -1,8 +1,8 @@
 import { Text } from '@/components/atoms/text/Text';
-import styles from './Counter.module.scss';
 import clsx from 'clsx';
+import styles from './Counter.module.scss';
 
-function Counter({ index, length }) {
+export function Counter({ index, length }) {
 	return (
 		<div className={clsx(styles.counter)}>
 			<Text tag={'strong'} type={'menu'}>
@@ -14,5 +14,3 @@ function Counter({ index, length }) {
 		</div>
 	);
 }
-
-export default Counter;

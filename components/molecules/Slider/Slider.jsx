@@ -1,8 +1,8 @@
 import { Pic } from '@/components/atoms/pic/Pic';
-import styles from './Slider.module.scss';
 import clsx from 'clsx';
+import styles from './Slider.module.scss';
 
-function Slider({ data, index }) {
+export function Slider({ data, index }) {
 	return (
 		<article className={clsx(styles.slider)}>
 			{data.map((el, idx) => (
@@ -15,5 +15,3 @@ function Slider({ data, index }) {
 		</article>
 	);
 }
-
-export default Slider;

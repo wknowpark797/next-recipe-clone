@@ -1,16 +1,15 @@
 import { Fragment } from 'react';
 import { Text } from '@/components/atoms/text/Text';
-import styles from './Breadcrumb.module.scss';
 import clsx from 'clsx';
+import styles from './Breadcrumb.module.scss';
 
-function Breadcrumb({ data, isActive }) {
+export function Breadcrumb({ data, isActive }) {
 	return (
-		// isActive값이 true일 때 on 클래스 추가
 		<nav
 			className={clsx(styles.breadcrumb, isActive ? styles.on : '')}
 		>
 			{data.map((name, idx) => {
-				// 라우터명 문자값에 '-'있을 때 처리
+				// 라우터명 문자값에 '-'이 있을 경우
 				const result = name.includes('-')
 					? name
 							.split('-')
@@ -20,7 +19,7 @@ function Breadcrumb({ data, isActive }) {
 							.join(' ')
 					: name;
 
-				// 문자값에 쿼리스트링이 있을 때 처리
+				// 라우터명 문자값에 쿼리스트링이 있을 경우
 				const result2 = result.includes('?')
 					? result.split('=')[1].replaceAll('%20', ' ')
 					: result;
@@ -47,5 +46,3 @@ function Breadcrumb({ data, isActive }) {
 		</nav>
 	);
 }
-
-export default Breadcrumb;

@@ -3,7 +3,7 @@ import styles from './Footer.module.scss';
 import clsx from 'clsx';
 import { Text } from '@/components/atoms/text/Text';
 import { useGlobalData } from '@/hooks/useGlobalContext';
-import Category from '@/components/molecules/Category/Category';
+import { Category } from '@/components/molecules/Category/Category';
 
 function Footer() {
 	const { Theme, setTheme } = useGlobalData();

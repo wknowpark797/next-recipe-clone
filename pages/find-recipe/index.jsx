@@ -2,16 +2,16 @@ import Head from 'next/head';
 import axios from 'axios';
 import styles from './style.module.scss';
 import clsx from 'clsx';
-import Category from '@/components/molecules/Category/Category';
+import { Category } from '@/components/molecules/Category/Category';
 import {
 	useRecipeByCategory,
 	useRecipeBySearch,
 } from '@/hooks/useRecipe';
 import { useState, useEffect, useRef } from 'react';
 import { useDebounce } from '@/hooks/useDebounce';
-import Card from '@/components/molecules/Card/Card';
+import { Card } from '@/components/molecules/Card/Card';
 import { Title } from '@/components/atoms/text/Title';
-import SearchBar from '@/components/molecules/SearchBar/SearchBar';
+import { SearchBar } from '@/components/molecules/SearchBar/SearchBar';
 import { Text } from '@/components/atoms/text/Text';
 
 /*

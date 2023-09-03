@@ -1,10 +1,16 @@
 import { Btn } from '@/components/atoms/button/Btn';
-import styles from './Category.module.scss';
 import clsx from 'clsx';
+import styles from './Category.module.scss';
 
-function Category({ items, onClick, active, names }) {
+export function Category({
+	items,
+	onClick,
+	active,
+	names,
+	className,
+}) {
 	return (
-		<nav className={clsx(styles.category)}>
+		<nav className={clsx(styles.category, className)}>
 			{items.map((item, idx) => {
 				return (
 					<Btn
@@ -19,5 +25,3 @@ function Category({ items, onClick, active, names }) {
 		</nav>
 	);
 }
-
-export default Category;

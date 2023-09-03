@@ -4,7 +4,7 @@ import { Title } from '@/components/atoms/text/Title';
 import styles from './favorite.module.scss';
 import { useState, useEffect } from 'react';
 import { useRecipesByIds } from '@/hooks/useRecipe';
-import Card from '@/components/molecules/Card/Card';
+import { Card } from '@/components/molecules/Card/Card';
 
 function Favorite() {
 	const [SavedId, setSavedId] = useState([]);

@@ -1,15 +1,17 @@
 import { Pic } from '@/components/atoms/pic/Pic';
-import styles from './Card.module.scss';
+import { Title } from '@/components/atoms/text/Title';
 import clsx from 'clsx';
-import { Text } from '@/components/atoms/text/Text';
+import styles from './Card.module.scss';
 
-function Card({ txt, imgSrc, className, url }) {
+export function Card({ txt, imgSrc, className, url, type }) {
 	return (
-		<article className={clsx(styles.card, className)}>
+		<article className={clsx(styles.card, className, styles[type])}>
 			{imgSrc && <Pic imgSrc={imgSrc} />}
-			{txt && <Text url={url}>{txt}</Text>}
+			{txt && (
+				<Title type={'subTitle'} tag={'h3'} url={url}>
+					{txt}
+				</Title>
+			)}
 		</article>
 	);
 }
-
-export default Card;
