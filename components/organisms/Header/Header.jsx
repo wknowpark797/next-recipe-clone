@@ -1,7 +1,7 @@
 import { Title } from '../../atoms/text/Title';
 import { Navbar } from '../../molecules/NavBar/Navbar';
-import styles from './Header.module.scss';
 import clsx from 'clsx';
+import styles from './Header.module.scss';
 
 function Header() {
 	return (
@@ -10,7 +10,7 @@ function Header() {
 				LOGO
 			</Title>
 
-			<Navbar names={['Find Recipe', 'My Favorite']} gap={20} />
+			<Navbar names={['Find Recipe', 'My Favorite']} />
 		</header>
 	);
 }
