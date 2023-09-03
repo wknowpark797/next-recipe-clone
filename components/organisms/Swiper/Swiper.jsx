@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Autoplay } from 'swiper';
 import 'swiper/css';
-import Title from '@/components/atoms/text/Title';
+import { Title } from '@/components/atoms/text/Title';
 import { useState } from 'react';
 import Slider from '@/components/molecules/Slider/Slider';
 import Counter from '@/components/molecules/Counter/Counter';

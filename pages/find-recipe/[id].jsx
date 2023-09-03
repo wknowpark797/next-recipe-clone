@@ -1,15 +1,15 @@
 import { Pic } from '@/components/atoms/pic/Pic';
-import Title from '@/components/atoms/text/Title';
+import { Title } from '@/components/atoms/text/Title';
 import { useRecipeById } from '@/hooks/useRecipe';
 import { useRouter } from 'next/router';
 import styles from './detail.module.scss';
 import clsx from 'clsx';
 import { RingLoader } from 'react-spinners';
 import { useState, useEffect } from 'react';
-import Table from '@/components/atoms/Table/Table';
-import List from '@/components/atoms/list/List';
-import Btn from '@/components/atoms/button/Btn';
-import Text from '@/components/atoms/text/Text';
+import { Table } from '@/components/atoms/Table/Table';
+import { List } from '@/components/atoms/list/List';
+import { Btn } from '@/components/atoms/button/Btn';
+import { Text } from '@/components/atoms/text/Text';
 import { useThemeColor } from '@/hooks/useThemeColor';
 
 function Detail() {

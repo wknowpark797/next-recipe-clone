@@ -1,10 +1,9 @@
-import Title from '../text/Title';
-import styles from './Table.module.scss';
+import { Title } from '../text/Title';
 import clsx from 'clsx';
+import styles from './Table.module.scss';
 
-function Table({ data, title }) {
+export function Table({ data, title }) {
 	if (data.length === 0) return;
-	console.log(data[0]);
 
 	return (
 		<>
@@ -32,5 +31,3 @@ function Table({ data, title }) {
 		</>
 	);
 }
-
-export default Table;

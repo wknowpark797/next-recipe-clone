@@ -10,9 +10,9 @@ import {
 import { useState, useEffect, useRef } from 'react';
 import { useDebounce } from '@/hooks/useDebounce';
 import Card from '@/components/molecules/Card/Card';
-import Title from '@/components/atoms/text/Title';
+import { Title } from '@/components/atoms/text/Title';
 import SearchBar from '@/components/molecules/SearchBar/SearchBar';
-import Text from '@/components/atoms/text/Text';
+import { Text } from '@/components/atoms/text/Text';
 
 /*
 	[ custom hook ]

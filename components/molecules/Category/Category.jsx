@@ -1,4 +1,4 @@
-import Btn from '@/components/atoms/button/Btn';
+import { Btn } from '@/components/atoms/button/Btn';
 import styles from './Category.module.scss';
 import clsx from 'clsx';
 

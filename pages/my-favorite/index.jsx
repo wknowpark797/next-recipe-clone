@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import clsx from 'clsx';
-import Title from '@/components/atoms/text/Title';
+import { Title } from '@/components/atoms/text/Title';
 import styles from './favorite.module.scss';
 import { useState, useEffect } from 'react';
 import { useRecipesByIds } from '@/hooks/useRecipe';

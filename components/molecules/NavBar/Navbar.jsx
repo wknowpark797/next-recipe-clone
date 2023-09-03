@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import styles from './Navbar.module.scss';
-import Text from '../../atoms/text/Text';
+import { Text } from '../../atoms/text/Text';
 import { useRouter } from 'next/router';
 
 function Navbar({ names, gap }) {

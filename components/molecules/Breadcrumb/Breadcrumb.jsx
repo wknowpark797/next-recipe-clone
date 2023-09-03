@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import Text from '@/components/atoms/text/Text';
+import { Text } from '@/components/atoms/text/Text';
 import styles from './Breadcrumb.module.scss';
 import clsx from 'clsx';
 

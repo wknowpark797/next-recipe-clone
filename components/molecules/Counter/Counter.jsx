@@ -1,4 +1,4 @@
-import Text from '@/components/atoms/text/Text';
+import { Text } from '@/components/atoms/text/Text';
 import styles from './Counter.module.scss';
 import clsx from 'clsx';
 

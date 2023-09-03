@@ -1,11 +1,11 @@
 .btn {
-	cursor: pointer;
-	background: transparent;
 	display: inline-block;
-	padding: 5px 10px;
-	border: 1px solid #666;
 	font: 12px/1 'arial';
 	color: #bbb;
+	border: 1px solid #666;
+	background: transparent;
+	padding: 5px 10px;
+	cursor: pointer;
 	transition: 0.5s;
 
 	&:hover,
