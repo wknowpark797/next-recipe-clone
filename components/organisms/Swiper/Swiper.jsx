@@ -1,4 +1,3 @@
-import styles from './Swiper.module.scss';
 import clsx from 'clsx';
 import { Title } from '@/components/atoms/text/Title';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -8,6 +7,7 @@ import { useState } from 'react';
 import { Slider } from '@/components/molecules/Slider/Slider';
 import { Counter } from '@/components/molecules/Counter/Counter';
 import { Text } from '@/components/atoms/text/Text';
+import styles from './Swiper.module.scss';
 
 // Next에서 Autoplay, Pagination, Navigation 기능 활성화
 SwiperCore.use([Autoplay]);

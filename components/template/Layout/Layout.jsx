@@ -19,10 +19,6 @@ function Layout({ children }) {
 	useEffect(() => {
 		const arr = router.asPath.split('/');
 		setPath(arr);
-
-		// router 경로가 변경될 때마다 순간적으로 IsShow state값을 false로 변경
-		// 페이지 전환 모션이 끝나는 0.5초 뒤에 다시 true로 변경
-		// Breadcrumb 컴포넌트에 활성화 유무로 IsShow 데이터 전달
 		setIsShow(false);
 		setTimeout(() => setIsShow(true), 500);
 	}, [router]);
@@ -46,9 +42,7 @@ function Layout({ children }) {
 					<Header />
 
 					<section className={clsx(styles.content)}>
-						{router.asPath !== '/' && (
-							<Breadcrumb data={Path} isActive={IsShow} />
-						)}
+						<Breadcrumb data={Path} isActive={IsShow} />
 						{children}
 					</section>
 
