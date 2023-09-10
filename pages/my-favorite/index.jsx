@@ -29,13 +29,10 @@ function Favorite() {
 			</Head>
 
 			<section className={clsx(styles.favoritePage)}>
-				<Title
-					type={'slogan'}
-					style={{ color: point, hoverColor: point }}
-					className={clsx(styles.titCategory)}
-				>
+				<Title type={'slogan'} style={{ color: point, hoverColor: point }} className={clsx(styles.titCategory)}>
 					My Favorite Recipe
 				</Title>
+
 				{result &&
 					result.map(({ data, isSuccess }) => {
 						if (isSuccess) {

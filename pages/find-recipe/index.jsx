@@ -2,10 +2,7 @@ import Head from 'next/head';
 import axios from 'axios';
 import clsx from 'clsx';
 import { Category } from '@/components/molecules/Category/Category';
-import {
-	useRecipeByCategory,
-	useRecipeBySearch,
-} from '@/hooks/useRecipe';
+import { useRecipeByCategory, useRecipeBySearch } from '@/hooks/useRecipe';
 import { useState, useEffect, useRef } from 'react';
 import { useDebounce } from '@/hooks/useDebounce';
 import { Card } from '@/components/molecules/Card/Card';
@@ -18,12 +15,19 @@ import styles from './style.module.scss';
 /*
 	[ custom hook ]
 	- 자주 활용되는 리액트 기능을 패키징해서 hook 형태로 만들어놓은 함수
-	- 인수가 전달되면 해당값을 활용해서 react-query를 이용하여 비동기서버 데이터를 호출하고 해당 결과값을 객체 형태로 리턴하는 함수
+	- 인수가 전달되면 해당값을 활용해서 react-query를 이용하여 
+		비동기서버 데이터를 호출하고 해당 결과값을 객체 형태로 리턴하는 함수
 
 	[ react-query 사용이유 ]
 	- 반환받은 서버 데이터를 캐싱처리해서 동일한 데이터 요청시 다시 refetching하지 않기 위함
 
-	{data(반환받은 서버 데이터), isSuccess(요청 성공시 true 반환), isError(요청 실패시 true 반환), isLoading(요청중일 때 true 반환), refetch(강제 refetching 함수)}
+	{ 
+		data(반환받은 서버 데이터), 
+		isSuccess(요청 성공시 true 반환), 
+		isError(요청 실패시 true 반환), 
+		isLoading(요청중일 때 true 반환), 
+		refetch(강제 refetching 함수)
+	}
 */
 
 export default function Recipe({ categories }) {
@@ -48,10 +52,8 @@ export default function Recipe({ categories }) {
 	const DebouncedSearch = useDebounce(Search);
 
 	// debounce되는 값이 변경될 때 react-query 훅이 호출된다.
-	const { data: dataByCategory, isSuccess: isCategory } =
-		useRecipeByCategory(DebouncedSelected, DebouncedSearch);
-	const { data: dataBySearch, isSuccess: isSearch } =
-		useRecipeBySearch(DebouncedSearch);
+	const { data: dataByCategory, isSuccess: isCategory } = useRecipeByCategory(DebouncedSelected, DebouncedSearch);
+	const { data: dataBySearch, isSuccess: isSearch } = useRecipeBySearch(DebouncedSearch);
 
 	// 카테고리 버튼을 클릭할 때 실행
 	// Selected값이 변경되고 새롭게 쿼리 요청을 보내는 조건이 Search값이 비어있어야 가능
@@ -95,23 +97,11 @@ export default function Recipe({ categories }) {
 
 				<article className={clsx(styles.titBox)}>
 					{/* 현재 출력되는 값에 따라 제목 변경 */}
-					<Title
-						type={'slogan'}
-						className={clsx(styles.titCategory)}
-						style={{ color: point, hoverColor: point }}
-					>
-						{DebouncedSelected
-							? DebouncedSelected
-							: `Result: ${DebouncedSearch}`}
+					<Title type={'slogan'} className={clsx(styles.titCategory)} style={{ color: point, hoverColor: point }}>
+						{DebouncedSelected ? DebouncedSelected : `Result: ${DebouncedSearch}`}
 					</Title>
 
-					<SearchBar
-						inputType={'text'}
-						isBtn={false}
-						placeholder={'search'}
-						value={Search}
-						onChange={setSearch}
-					/>
+					<SearchBar inputType={'text'} isBtn={false} placeholder={'search'} value={Search} onChange={setSearch} />
 				</article>
 
 				<div className={clsx(styles.listFrame)}>
@@ -145,9 +135,7 @@ export default function Recipe({ categories }) {
 
 					{/* Category가 없고 Search가 있는데 Search 결과 배열값이 없을 때 */}
 					{isSearch && dataBySearch.length === 0 && (
-						<Text
-							style={{ fontSize: 20, marginTop: 80, color: 'orange' }}
-						>
+						<Text style={{ fontSize: 20, marginTop: 80, color: 'orange' }}>
 							No Results <br /> Try another Recipe Name.
 						</Text>
 					)}

@@ -2,13 +2,10 @@ import Layout from '@/components/template/Layout/Layout';
 import '@/styles/globals.scss';
 import '@/styles/theme.scss';
 import axios from 'axios';
-import {
-	QueryClient,
-	QueryClientProvider,
-} from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { keepStyle } from '@/libs/keepStyle';
 import { GlobalProvider } from '@/hooks/useGlobalContext';
+import { keepStyle } from '@/libs/keepStyle';
 keepStyle(2000);
 
 axios.defaults.baseURL = 'https://www.themealdb.com/api/json/v1/1';
@@ -30,22 +27,26 @@ export default function App({ Component, pageProps }) {
 }
 
 /*
-	Next 동작방식 ssg, isr 방식으로 프리렌더링되서 만들어지는 페이지는 
-	프리렌더링 방식으로 구현되어 있는 페이지들을 이벤트가 발생하지 않더라도 라우터 설정되어 있는 메뉴에 호버하면
-	해당 데이터를 확인한걸로 예측해서 미리 prefetching 처리한다.
-	해당 페이지 컴포넌트가 라우터명이 변경되서 unmount될 때마다 다음에 prefetch할 데이터 용량을 최소화하기 위해서 style노드를 제거한다.
+	[ Next 스타일 유지하기 ]
+	Next의 동작방식인 SSG, ISR방식으로 프리렌더링 방식으로 구현되는 페이지 
+	-> 이벤트가 발생하지 않더라도 라우터 설정이 되어있는 메뉴에 hover하면 해당
+			데이터를 확인한것으로 예측해서 미리 prefetching 처리한다.
+	-> 해당 페이지 컴포넌트가 라우터명이 변경되서 unmount될 때마다 
+			다음에 prefetch할 데이터 용량을 최소화하기 위해서 style노드를 제거한다.
 
-	Framer-motion AnimatePresence를 이용해서 모션이 끝날때까지 이전 컴포넌트의 unmount 시점을 강제로 holding하고 있으면
-	이미 스타일 제거된 지저분한 페이지가 화면에 계속 노출되는 문제가 발생
-	-> 정적인 스타일은 문제가 없지만 자바스크립트가 동적으로 제어하는 module.scss, styled-component, tailwindCSS에서 모두 위와 같은 문제 발생
+	[ 문제점 발생 ]
+	Framer-motion AnimatePresence를 이용해서 모션이 끝날때까지 이전 컴포넌트의 unmount시점을 강제로 holding하고 있을 경우
+	-> 이미 스타일이 제거된 페이지가 화면에 계속 노출되는 문제가 발생
+	-> 정적인 스타일은 문제가 없지만 자바스크립트가 동적으로 제어하는 
+			module.scss, styled-component, tailwindCSS에서 모두 위와 같은 문제 발생
 
 	[ 해결방법 ]
-	라우터가 변경되는 시점마다 unmount되서 스타일이 날아가기 직전에 해당 스타일 노드를 head에서부터 복사한 후
-	next 고유 속성명을 제거한다.
-	복사한 style node를 다시 강제로 head에 삽입
-	이렇게 복사된 style node는 next가 제거할 수 없으므로 라우터가 변경되더라도 복사된 스타일이 유지되기 때문에 스타일도 유지할 수 있다.
-	transition이 끝나서 이전 페이지 컴포넌트가 unmount되는 시점에 강제로 복사했던 스타일 노드를 다시 제거한다.
-	해당 기능을 함수로 만들어 root 컴포넌트에서 라우터가 변경될때마다 호출한다.
+	- 라우터가 변경되는 시점마다 unmount되서 스타일이 날아가기 직전에 
+		해당 스타일 노드를 head에서부터 복사한 후 Next의 고유 속성명을 제거한다.
+	- 복사한 style node를 다시 강제로 head에 삽입한다.
+	- 복사된 style node는 Next가 제거할 수 없으므로 라우터가 변경되더라도 복사된 스타일이 유지된다.
+	- transition이 끝나면 이전 페이지 컴포넌트가 unmount되는 시점에 강제로 복사했던 스타일 노드를 제거한다.
+	- 해당 기능을 함수로 만들어 root컴포넌트에서 라우터가 변경될때마다 호출한다. (keepStyle.js)
 */
 
 /*
@@ -59,7 +60,7 @@ export default function App({ Component, pageProps }) {
 /*
 	[ 프로젝트 구성 ]
 	요리명을 검색어로 입력하면 해당 요리의 정보와 레시피를 확인하는 웹서비스 개발
-	- 좋아하는 레시피를 저장해서 즐겨찾기 (localStorage 저장)
+	- 좋아하는 레시피를 저장해서 즐겨찾기 (localStorage 저장소 활용)
 
 	1. 메인페이지 (ISR)
 		- 특정 카테고리의 요리들을 소개하는 intro 페이지

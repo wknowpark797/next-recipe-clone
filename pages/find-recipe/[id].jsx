@@ -14,12 +14,10 @@ import styles from './detail.module.scss';
 
 function Detail() {
 	/*
-		^조건$
+		[ 정규표현식 (^조건$) ]
 			- 정규표현식에서 해당 조건이 포함이 아닌 정확하게 조건에 부합될때만 처리
-
-		표현식 뒤의 +는 해당 조건의 값이 반복되는 경우에도 true로 평가
-
-		ex. const result = /^\d+[.][' ']$/.test('2');
+			- 표현식 뒤의 +는 해당 조건의 값이 반복되는 경우에도 true로 평가
+			ex. const result = /^\d+[.][' ']$/.test('2');
 	*/
 
 	const { point } = useThemeColor();
@@ -31,35 +29,25 @@ function Detail() {
 	const [ListData, setListData] = useState([]);
 	const [Saved, setSaved] = useState(false);
 
-	// recipeId값 저장, 삭제 토글 함수
+	// recipeId값 localStorage에 저장, 삭제 토글 함수
 	const handleSave = () => {
-		const savedRecipe = JSON.parse(
-			localStorage.getItem('savedRecipe')
-		);
+		const savedRecipe = JSON.parse(localStorage.getItem('savedRecipe'));
 
 		if (!Saved) {
 			savedRecipe.push(data.idMeal);
-			localStorage.setItem(
-				'savedRecipe',
-				JSON.stringify(savedRecipe)
-			);
+			localStorage.setItem('savedRecipe', JSON.stringify(savedRecipe));
 			setSaved(true);
 		} else {
 			savedRecipe.splice(savedRecipe.indexOf(data.idMeal), 1);
-			localStorage.setItem(
-				'savedRecipe',
-				JSON.stringify(savedRecipe)
-			);
+			localStorage.setItem('savedRecipe', JSON.stringify(savedRecipe));
 			setSaved(false);
 		}
 	};
 
-	// router로 들어오는 id값이 변경될때마다 실행되는 useEffect
+	// router로 들어오는 id값이 변경될때마다 실행
 	useEffect(() => {
 		if (localStorage.getItem('savedRecipe')) {
-			const savedRecipe = JSON.parse(
-				localStorage.getItem('savedRecipe')
-			);
+			const savedRecipe = JSON.parse(localStorage.getItem('savedRecipe'));
 
 			if (savedRecipe.includes(id)) {
 				setSaved(true);
@@ -76,13 +64,9 @@ function Detail() {
 		if (data) {
 			const keys = Object.keys(data);
 			// 레시피 정보 객체에서 strIngredient 문자로 시작하는 키값만 필터
-			const filterKeys1 = keys.filter((key) =>
-				key.startsWith('strIngredient')
-			);
+			const filterKeys1 = keys.filter((key) => key.startsWith('strIngredient'));
 			// value값이 빈문자이거나 null이면 제외
-			const filterKeys2 = filterKeys1.filter(
-				(key) => data[key] !== '' && data[key] !== null
-			);
+			const filterKeys2 = filterKeys1.filter((key) => data[key] !== '' && data[key] !== null);
 			// 필터링된 키값으로 재료순서, 재료명, 재료량을 객체로 변환 후 배열로 반환
 			const ingredients = filterKeys2.map((key, idx) => ({
 				index: idx + 1,
@@ -95,11 +79,7 @@ function Detail() {
 			// 레시피 순서
 			const instructions = data.strInstructions
 				.split('\r\n')
-				.map((text) =>
-					text.includes('.\t')
-						? text.replace('.\t', '+').split('+')[1]
-						: text
-				)
+				.map((text) => (text.includes('.\t') ? text.replace('.\t', '+').split('+')[1] : text))
 				// 원본 문자열에 줄바꿈 정규표현식이 여러번 들어가 있는 문장의 경우 빈문장을 배열로 반환하기 때문에 해당 배열값 제거
 				.filter((text) => text !== '');
 
@@ -113,8 +93,10 @@ function Detail() {
 			{/* 
 				[ Spinner Loading ]
 				Next는 라우터명이 변경될때마다 unmount되는 페이지 컴포넌트의 CSR방식으로 가져온 데이터와 스타일 노드를 제거한다.
-				page transition이 적용되어 있기 때문에 상세페이지에서 다른페이지로 넘어갈 때 데이터는 이미 사라졌음에도 불구하고
-				데이터를 활용하는 컴포넌트가 계속 있으면 prop오류 발생
+
+				-> 문제점 발생
+					- page transition이 적용되어 있기 때문에 상세페이지에서 다른페이지로 넘어갈 때 
+						데이터는 이미 사라졌음에도 불구하고 데이터를 활용하는 컴포넌트가 계속 있으면 prop오류 발생
 				-> 해결방법: CSR방식으로 가져오는 데이터를 컴포넌트 렌더링의 조건 설정
 					- 데이터가 없으면 로딩바 출력
 					- 데이터가 있으면 그 데이터를 활용하는 컴포넌트 출력
@@ -133,10 +115,7 @@ function Detail() {
 
 			{data && (
 				<>
-					<Title
-						type={'slogan'}
-						style={{ color: point, hoverColor: point }}
-					>
+					<Title type={'slogan'} style={{ color: point, hoverColor: point }}>
 						{data.strMeal}
 					</Title>
 
@@ -144,10 +123,7 @@ function Detail() {
 						<Pic imgSrc={data.strMealThumb} />
 					</div>
 
-					<Btn
-						onClick={handleSave}
-						className={clsx(Saved && styles.del)}
-					>
+					<Btn onClick={handleSave} className={clsx(Saved && styles.del)}>
 						{Saved ? '즐겨찾기 제거하기' : '즐겨찾기 추가하기'}
 					</Btn>
 					{Saved && <Text>즐겨찾기에 이미 추가된 레시피입니다.</Text>}
